@@ -5,33 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harness — Design System</title>
 <style>
-  /* ── FONT FACE (폰트 파일 없으면 시스템 폰트 폴백) ── */
-  @font-face { font-family: 'SamsungOne'; src: url('public/fonts/SamsungOne-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-  @font-face { font-family: 'SamsungOne'; src: url('public/fonts/SamsungOne-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
-  @font-face { font-family: 'SamsungOne'; src: url('public/fonts/SamsungOne-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
-  @font-face { font-family: 'SamsungOneKR'; src: url('public/fonts/SamsungOneKR-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-  @font-face { font-family: 'SamsungOneKR'; src: url('public/fonts/SamsungOneKR-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-  @font-face { font-family: 'SamsungOneKR'; src: url('public/fonts/SamsungOneKR-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+  /* ── FONT: Pretendard Variable ── */
+  @font-face {
+    font-family: 'Pretendard Variable';
+    src: url('public/fonts/PretendardVariable.woff2') format('woff2-variations');
+    font-weight: 45 920;
+    font-display: swap;
+  }
 
   :root {
-    --font-sans: 'SamsungOneKR', 'SamsungOne', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, sans-serif;
+    --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
 
     --bg: #FCFCFC;
     --bg-elevated: #FFFFFF;
     --bg-sunken: #F5F5F7;
-    --border: #E8E8EC;
+    --border: #E5E7EB;
     --border-subtle: #F0F0F2;
-    --border-strong: #D4D4D8;
+    --border-strong: #D1D5DB;
 
-    --text: #111111;
-    --text-secondary: #636366;
-    --text-tertiary: #AEAEB2;
+    --text: #0d1f33;
+    --text-secondary: #4a6080;
+    --text-tertiary: #8fa5be;
     --text-inverse: #FFFFFF;
 
-    --accent: #1428A0;
-    --accent-light: #E8EAFC;
-    --accent-hover: #0F1F80;
+    --accent: #0F4C81;
+    --accent-light: #D4E4F7;
+    --accent-hover: #0a3d6b;
+
+    --teal: #00BFA5;
+    --teal-light: #E0FAF6;
 
     --success: #1B873F;
     --success-light: #E6F6EC;
@@ -42,14 +45,13 @@
     --info: #0969DA;
     --info-light: #DDF4FF;
 
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 20px;
+    --radius-sm: 8px;
+    --radius-md: 15px;
+    --radius-lg: 24px;
 
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 2px 8px -2px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-lg: 0 4px 16px -4px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    --shadow-1: 0 2px 6px rgba(15,76,129,0.06);
+    --shadow-2: 0 4px 14px rgba(15,76,129,0.09);
+    --shadow-3: 0 8px 28px rgba(15,76,129,0.12);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -257,10 +259,10 @@
     background: var(--bg-elevated);
     border: 1px solid var(--border-subtle);
     padding: 2rem;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-1);
     transition: box-shadow 0.2s;
   }
-  .doc-card:hover { box-shadow: var(--shadow-md); }
+  .doc-card:hover { box-shadow: var(--shadow-2); }
   .doc-card h3 {
     font-size: 1.15rem;
     font-weight: 700;
@@ -303,7 +305,7 @@
   }
   .surface-card:hover {
     border-color: var(--border-strong);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-2);
     transform: translateY(-2px);
   }
 
@@ -319,8 +321,8 @@
   <!-- HEADER -->
   <div class="page-header">
     <h1>Harness Design System</h1>
-    <p>Samsung One 기반, 문서 생성 플랫폼을 위한 디자인 토큰과 컴포넌트</p>
-    <div class="meta-line">v1.0.0 — font: SamsungOne / SamsungOneKR — accent: Samsung Blue #1428A0</div>
+    <p>"Trust within Flow" 기반, 문서 생성 플랫폼을 위한 디자인 토큰과 컴포넌트</p>
+    <div class="meta-line">v2.0.0 — font: Pretendard Variable — accent: Core Blue #0F4C81 / Teal #00BFA5</div>
   </div>
 
   <!-- COLOR -->
@@ -350,8 +352,8 @@
     <h3 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-secondary);">Accent & Semantic</h3>
     <div class="grid-4" style="margin-bottom: 2rem;">
       <div class="swatch">
-        <div class="swatch-color" style="background: #1428A0;"><span style="background: rgba(0,0,0,0.4); color: #fff;">#1428A0</span></div>
-        <div class="swatch-label"><div class="name">Accent (Samsung Blue)</div><div class="var">--color-accent</div></div>
+        <div class="swatch-color" style="background: #0F4C81;"><span style="background: rgba(0,0,0,0.4); color: #fff;">#0F4C81</span></div>
+        <div class="swatch-label"><div class="name">Accent (Core Blue)</div><div class="var">--color-accent</div></div>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: #1B873F;"><span style="background: rgba(0,0,0,0.4); color: #fff;">#1B873F</span></div>
@@ -587,23 +589,19 @@
         <div class="preview-label">Border Radius</div>
         <div style="display: flex; gap: 1.5rem; align-items: end;">
           <div style="text-align: center;">
-            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 6px;"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">sm · 6px</div>
+            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">sm · 8px</div>
           </div>
           <div style="text-align: center;">
-            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 10px;"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">md · 10px</div>
+            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 15px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">md · 15px (R15)</div>
           </div>
           <div style="text-align: center;">
-            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 14px;"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">lg · 14px</div>
+            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 24px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">lg · 24px</div>
           </div>
           <div style="text-align: center;">
-            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 20px;"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">xl · 20px</div>
-          </div>
-          <div style="text-align: center;">
-            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 9999px;"></div>
+            <div style="width: 48px; height: 48px; background: var(--teal-light, #E0FAF6); border: 1px solid var(--teal, #00BFA5); border-radius: 9999px;"></div>
             <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">full</div>
           </div>
         </div>
@@ -612,20 +610,20 @@
         <div class="preview-label">Shadow</div>
         <div style="display: flex; gap: 1.5rem; align-items: end;">
           <div style="text-align: center;">
-            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 10px; box-shadow: var(--shadow-sm);"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">sm</div>
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: var(--shadow-1);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">1</div>
           </div>
           <div style="text-align: center;">
-            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 10px; box-shadow: var(--shadow-md);"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">md</div>
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: var(--shadow-2);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">2</div>
           </div>
           <div style="text-align: center;">
-            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 10px; box-shadow: var(--shadow-lg);"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">lg</div>
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: var(--shadow-3);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">3</div>
           </div>
           <div style="text-align: center;">
-            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 10px; box-shadow: var(--shadow-xl);"></div>
-            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">xl</div>
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: 0 16px 44px rgba(15,76,129,0.14);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">4</div>
           </div>
         </div>
       </div>

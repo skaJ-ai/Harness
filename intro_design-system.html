@@ -5,33 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harness — AI 문서 생성 플랫폼</title>
 <style>
-  /* ── FONT FACE ── */
-  @font-face { font-family: 'SamsungOne'; src: url('public/fonts/SamsungOne-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-  @font-face { font-family: 'SamsungOne'; src: url('public/fonts/SamsungOne-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
-  @font-face { font-family: 'SamsungOne'; src: url('public/fonts/SamsungOne-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
-  @font-face { font-family: 'SamsungOneKR'; src: url('public/fonts/SamsungOneKR-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-  @font-face { font-family: 'SamsungOneKR'; src: url('public/fonts/SamsungOneKR-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-  @font-face { font-family: 'SamsungOneKR'; src: url('public/fonts/SamsungOneKR-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+  /* ── FONT: Pretendard Variable ── */
+  @font-face {
+    font-family: 'Pretendard Variable';
+    src: url('public/fonts/PretendardVariable.woff2') format('woff2-variations');
+    font-weight: 45 920;
+    font-display: swap;
+  }
 
   :root {
-    --font-sans: 'SamsungOneKR', 'SamsungOne', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, sans-serif;
+    --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
 
     --bg: #FCFCFC;
     --bg-elevated: #FFFFFF;
     --bg-sunken: #F5F5F7;
-    --border: #E8E8EC;
+    --border: #E5E7EB;
     --border-subtle: #F0F0F2;
-    --border-strong: #D4D4D8;
+    --border-strong: #D1D5DB;
 
-    --text: #111111;
-    --text-secondary: #636366;
-    --text-tertiary: #AEAEB2;
+    --text: #0d1f33;
+    --text-secondary: #4a6080;
+    --text-tertiary: #8fa5be;
 
-    --accent: #1428A0;
-    --accent-light: #E8EAFC;
-    --accent-hover: #0F1F80;
-    --accent-glow: rgba(20, 40, 160, 0.06);
+    --accent: #0F4C81;
+    --accent-light: #D4E4F7;
+    --accent-hover: #0a3d6b;
+    --accent-glow: rgba(15, 76, 129, 0.06);
+
+    --teal: #00BFA5;
+    --teal-light: #E0FAF6;
 
     --success: #1B873F;
     --success-light: #E6F6EC;
@@ -40,14 +43,13 @@
     --error: #CF222E;
     --error-light: #FFEBE9;
 
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 20px;
+    --radius-sm: 8px;
+    --radius-md: 15px;
+    --radius-lg: 24px;
 
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 2px 8px -2px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-lg: 0 4px 16px -4px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    --shadow-1: 0 2px 6px rgba(15,76,129,0.06);
+    --shadow-2: 0 4px 14px rgba(15,76,129,0.09);
+    --shadow-3: 0 8px 28px rgba(15,76,129,0.12);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -149,7 +151,7 @@
     font-size: 0.75rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    border: 1px solid rgba(20,40,160,0.12);
+    border: 1px solid rgba(15,76,129,0.12);
   }
   .hero .badge .dot {
     width: 6px; height: 6px; border-radius: 50%;
@@ -183,9 +185,9 @@
   }
   .btn-primary {
     background: var(--accent); color: white;
-    box-shadow: 0 2px 12px rgba(20,40,160,0.2);
+    box-shadow: 0 2px 12px rgba(15,76,129,0.2);
   }
-  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(20,40,160,0.25); }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(15,76,129,0.25); }
   .btn-secondary {
     background: transparent; color: var(--text-secondary);
     border: 1px solid var(--border);
@@ -206,7 +208,7 @@
     padding: 1.75rem;
     transition: all 0.2s;
   }
-  .problem-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .problem-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .problem-card .icon {
     width: 44px; height: 44px;
     background: var(--error-light);
@@ -233,7 +235,7 @@
     font-size: 0.8rem; font-weight: 700;
     background: var(--accent-light);
     color: var(--accent);
-    border: 2px solid rgba(20,40,160,0.15);
+    border: 2px solid rgba(15,76,129,0.15);
   }
   .journey-step:nth-child(3) .step-number { background: var(--warning-light); color: var(--warning); border-color: rgba(208,135,0,0.15); }
   .journey-step:nth-child(4) .step-number { background: var(--success-light); color: var(--success); border-color: rgba(27,135,63,0.15); }
@@ -311,7 +313,7 @@
     text-align: center;
     transition: all 0.2s;
   }
-  .agent-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .agent-card:hover { border-color: var(--accent); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .agent-card .agent-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
   .agent-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
   .agent-card p { color: var(--text-tertiary); font-size: 0.75rem; line-height: 1.5; }
@@ -324,7 +326,7 @@
     padding: 1.75rem;
     transition: all 0.2s;
   }
-  .feature-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .feature-card:hover { border-color: var(--accent); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .feature-card .icon {
     width: 44px; height: 44px;
     background: var(--accent-light);
@@ -341,9 +343,9 @@
     width: 100%;
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     padding: 2.5rem;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-1);
   }
   .graph-box svg { width: 100%; height: 340px; }
   .graph-caption {
@@ -648,7 +650,7 @@
     </div>
 
     <div style="text-align: center; margin-bottom: 2.5rem;">
-      <div style="display: inline-block; background: var(--accent-light); border: 1px solid rgba(20,40,160,0.15); color: var(--accent); padding: 8px 20px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600;">
+      <div style="display: inline-block; background: var(--accent-light); border: 1px solid rgba(15,76,129,0.15); color: var(--accent); padding: 8px 20px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600;">
         하네스 = 역할별 전용 지시서(시스템 프롬프트)가 출력을 통제
       </div>
     </div>
@@ -878,7 +880,7 @@
           <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.25rem;">고성능 LLM + 인사이트</div>
         </div>
       </div>
-      <div style="display: inline-block; background: var(--accent-light); border: 1px solid rgba(20,40,160,0.15); color: var(--accent); padding: 8px 20px; border-radius: var(--radius-md); font-size: 0.88rem; font-weight: 600;">
+      <div style="display: inline-block; background: var(--accent-light); border: 1px solid rgba(15,76,129,0.15); color: var(--accent); padding: 8px 20px; border-radius: var(--radius-md); font-size: 0.88rem; font-weight: 600;">
         Harness = Phase 1의 실행 산출물
       </div>
     </div>

@@ -3,49 +3,15 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════
-   Harness Design System — Samsung One 기반
+   Harness Design System — "Trust within Flow"
+   AX Lab 브랜딩 기준 정렬 (Pretendard + Core Blue + Teal)
    ═══════════════════════════════════════════════════ */
 
-/* ── FONT FACE: Samsung One ── */
+/* ── FONT: Pretendard Variable ── */
 @font-face {
-  font-family: 'SamsungOne';
-  src: url('/fonts/SamsungOne-400.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'SamsungOne';
-  src: url('/fonts/SamsungOne-500.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'SamsungOne';
-  src: url('/fonts/SamsungOne-700.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'SamsungOneKR';
-  src: url('/fonts/SamsungOneKR-400.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'SamsungOneKR';
-  src: url('/fonts/SamsungOneKR-600.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'SamsungOneKR';
-  src: url('/fonts/SamsungOneKR-700.woff2') format('woff2');
-  font-weight: 700;
+  font-family: 'Pretendard Variable';
+  src: url('/fonts/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 45 920;
   font-style: normal;
   font-display: swap;
 }
@@ -54,7 +20,7 @@
 @layer base {
   :root {
     /* Typography */
-    --font-sans: 'SamsungOneKR', 'SamsungOne', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
 
     /* Colors — Light (default) */
@@ -63,18 +29,22 @@
     --color-bg-sunken: #F5F5F7;
     --color-bg-overlay: rgba(0, 0, 0, 0.04);
 
-    --color-border: #E8E8EC;
+    --color-border: #E5E7EB;
     --color-border-subtle: #F0F0F2;
-    --color-border-strong: #D4D4D8;
+    --color-border-strong: #D1D5DB;
 
-    --color-text: #111111;
-    --color-text-secondary: #636366;
-    --color-text-tertiary: #AEAEB2;
+    --color-text: #0d1f33;
+    --color-text-secondary: #4a6080;
+    --color-text-tertiary: #8fa5be;
     --color-text-inverse: #FFFFFF;
 
-    --color-accent: #1428A0;         /* Samsung Blue */
-    --color-accent-light: #E8EAFC;
-    --color-accent-hover: #0F1F80;
+    --color-accent: #0F4C81;           /* Core Blue — Trust */
+    --color-accent-light: #D4E4F7;     /* Soft Blue — Flow */
+    --color-accent-hover: #0a3d6b;
+
+    --color-teal: #00BFA5;             /* Accent Teal — Insight */
+    --color-teal-light: #E0FAF6;
+    --color-teal-hover: #00A892;
 
     --color-success: #1B873F;
     --color-success-light: #E6F6EC;
@@ -97,18 +67,18 @@
     --space-12: 3rem;     /* 48px */
     --space-16: 4rem;     /* 64px */
 
-    /* Border Radius */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 20px;
+    /* Border Radius — R15 기준 (브랜딩 표준) */
+    --radius-sm: 8px;
+    --radius-md: 15px;
+    --radius-lg: 24px;
     --radius-full: 9999px;
 
-    /* Shadow */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 2px 8px -2px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-lg: 0 4px 16px -4px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-xl: 0 8px 32px -8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.04);
+    /* Shadow — 5단계, brand-tinted */
+    --shadow-1: 0 2px 6px rgba(15, 76, 129, 0.06);
+    --shadow-2: 0 4px 14px rgba(15, 76, 129, 0.09);
+    --shadow-3: 0 8px 28px rgba(15, 76, 129, 0.12);
+    --shadow-4: 0 16px 44px rgba(15, 76, 129, 0.14);
+    --shadow-5: 0 24px 64px rgba(15, 76, 129, 0.16);
 
     /* Transition */
     --duration-fast: 120ms;
@@ -129,13 +99,17 @@
     --color-border-strong: #3A3A3A;
 
     --color-text: #F0F0F0;
-    --color-text-secondary: #888888;
-    --color-text-tertiary: #555555;
-    --color-text-inverse: #111111;
+    --color-text-secondary: #94A3B8;
+    --color-text-tertiary: #64748B;
+    --color-text-inverse: #0d1f33;
 
-    --color-accent: #6E7BFF;
-    --color-accent-light: rgba(110, 123, 255, 0.12);
-    --color-accent-hover: #8B95FF;
+    --color-accent: #7BA7C9;
+    --color-accent-light: rgba(15, 76, 129, 0.15);
+    --color-accent-hover: #9BBDD6;
+
+    --color-teal: #4DD8C0;
+    --color-teal-light: rgba(0, 191, 165, 0.12);
+    --color-teal-hover: #6EE4D0;
 
     --color-success: #3FB950;
     --color-success-light: rgba(63, 185, 80, 0.12);
@@ -146,10 +120,11 @@
     --color-info: #58A6FF;
     --color-info-light: rgba(88, 166, 255, 0.12);
 
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 2px 8px -2px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 4px 16px -4px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
+    --shadow-1: 0 2px 6px rgba(0, 0, 0, 0.3);
+    --shadow-2: 0 4px 14px rgba(0, 0, 0, 0.35);
+    --shadow-3: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --shadow-4: 0 16px 44px rgba(0, 0, 0, 0.45);
+    --shadow-5: 0 24px 64px rgba(0, 0, 0, 0.5);
   }
 
   /* ── BASE STYLES ── */
@@ -188,33 +163,34 @@
   .surface {
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
   }
 
   .surface-interactive {
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     transition: border-color var(--duration-normal) var(--ease-out),
                 box-shadow var(--duration-normal) var(--ease-out),
                 transform var(--duration-normal) var(--ease-out);
   }
   .surface-interactive:hover {
     border-color: var(--color-border-strong);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-2);
     transform: translateY(-2px);
   }
 
-  /* Document Card — 원본 하네스 스타일 */
+  /* Document Card */
   .doc-card {
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
     padding: var(--space-8);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-1);
     transition: box-shadow var(--duration-normal) var(--ease-out);
   }
   .doc-card:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-2);
   }
 
   /* Tab — 워크플로우 탭 */
@@ -238,7 +214,7 @@
   .tab[data-active="true"],
   .tab.active {
     color: var(--color-text);
-    border-bottom-color: var(--color-text);
+    border-bottom-color: var(--color-accent);
   }
 
   /* Badge / Chip */
@@ -255,6 +231,10 @@
   .badge-accent {
     background-color: var(--color-accent-light);
     color: var(--color-accent);
+  }
+  .badge-teal {
+    background-color: var(--color-teal-light);
+    color: var(--color-teal);
   }
   .badge-success {
     background-color: var(--color-success-light);
@@ -292,7 +272,7 @@
     font-weight: 600;
   }
 
-  /* Button */
+  /* Button — Primary (Core Blue) */
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -302,7 +282,7 @@
     background-color: var(--color-accent);
     color: var(--color-text-inverse);
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
@@ -314,6 +294,29 @@
     transform: translateY(-1px);
   }
 
+  /* Button — Teal (Action CTA) */
+  .btn-teal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    background-color: var(--color-teal);
+    color: var(--color-text-inverse);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--duration-fast),
+                transform var(--duration-fast);
+  }
+  .btn-teal:hover {
+    background-color: var(--color-teal-hover);
+    transform: translateY(-1px);
+  }
+
+  /* Button — Secondary (Outlined) */
   .btn-secondary {
     display: inline-flex;
     align-items: center;
@@ -323,7 +326,7 @@
     background-color: transparent;
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -371,6 +374,12 @@
   .status-dot-warning { background-color: var(--color-warning); }
   .status-dot-error { background-color: var(--color-error); }
   .status-dot-neutral { background-color: var(--color-text-tertiary); }
+
+  /* Focus Ring — Teal (브랜딩 표준) */
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 2px;
+  }
 }
 
 /* ── UTILITY CLASSES ── */

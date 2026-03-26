@@ -7,10 +7,11 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: [
-          'SamsungOneKR',
-          'SamsungOne',
-          'Apple SD Gothic Neo',
-          'Malgun Gothic',
+          'Pretendard Variable',
+          'Pretendard',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
           'sans-serif',
         ],
         mono: [
@@ -44,6 +45,11 @@ const config: Config = {
           light: 'var(--color-accent-light)',
           hover: 'var(--color-accent-hover)',
         },
+        teal: {
+          DEFAULT: 'var(--color-teal)',
+          light: 'var(--color-teal-light)',
+          hover: 'var(--color-teal-hover)',
+        },
         success: {
           DEFAULT: 'var(--color-success)',
           light: 'var(--color-success-light)',
@@ -61,13 +67,13 @@ const config: Config = {
         sm: 'var(--radius-sm)',
         md: 'var(--radius-md)',
         lg: 'var(--radius-lg)',
-        xl: 'var(--radius-xl)',
       },
       boxShadow: {
-        sm: 'var(--shadow-sm)',
-        md: 'var(--shadow-md)',
-        lg: 'var(--shadow-lg)',
-        xl: 'var(--shadow-xl)',
+        1: 'var(--shadow-1)',
+        2: 'var(--shadow-2)',
+        3: 'var(--shadow-3)',
+        4: 'var(--shadow-4)',
+        5: 'var(--shadow-5)',
       },
     },
   },
