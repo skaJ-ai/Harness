@@ -10,9 +10,7 @@ import type { TemplateEntity, TemplateFilter } from './types';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? '';
 
-async function getTemplateEntities(
-  _filter?: TemplateFilter,
-): Promise<Result<TemplateEntity[]>> {
+async function getTemplateEntities(_filter?: TemplateFilter): Promise<Result<TemplateEntity[]>> {
   return safeFetch<TemplateEntity[]>(`${API_BASE}/api/templates`);
 }
 

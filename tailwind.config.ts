@@ -14,13 +14,7 @@ const config: Config = {
           'Segoe UI',
           'sans-serif',
         ],
-        mono: [
-          'SFMono-Regular',
-          'Consolas',
-          'Liberation Mono',
-          'Menlo',
-          'monospace',
-        ],
+        mono: ['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'monospace'],
       },
       colors: {
         bg: {

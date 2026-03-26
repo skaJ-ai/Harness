@@ -20,52 +20,53 @@
 @layer base {
   :root {
     /* Typography */
-    --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-sans:
+      'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
 
     /* Colors — Light (default) */
-    --color-bg: #FCFCFC;
-    --color-bg-elevated: #FFFFFF;
-    --color-bg-sunken: #F5F5F7;
+    --color-bg: #fcfcfc;
+    --color-bg-elevated: #ffffff;
+    --color-bg-sunken: #f5f5f7;
     --color-bg-overlay: rgba(0, 0, 0, 0.04);
 
-    --color-border: #E5E7EB;
-    --color-border-subtle: #F0F0F2;
-    --color-border-strong: #D1D5DB;
+    --color-border: #e5e7eb;
+    --color-border-subtle: #f0f0f2;
+    --color-border-strong: #d1d5db;
 
     --color-text: #0d1f33;
     --color-text-secondary: #4a6080;
     --color-text-tertiary: #8fa5be;
-    --color-text-inverse: #FFFFFF;
+    --color-text-inverse: #ffffff;
 
-    --color-accent: #0F4C81;           /* Core Blue — Trust */
-    --color-accent-light: #D4E4F7;     /* Soft Blue — Flow */
+    --color-accent: #0f4c81; /* Core Blue — Trust */
+    --color-accent-light: #d4e4f7; /* Soft Blue — Flow */
     --color-accent-hover: #0a3d6b;
 
-    --color-teal: #00BFA5;             /* Accent Teal — Insight */
-    --color-teal-light: #E0FAF6;
-    --color-teal-hover: #00A892;
+    --color-teal: #00bfa5; /* Accent Teal — Insight */
+    --color-teal-light: #e0faf6;
+    --color-teal-hover: #00a892;
 
-    --color-success: #1B873F;
-    --color-success-light: #E6F6EC;
-    --color-warning: #D08700;
-    --color-warning-light: #FFF4D4;
-    --color-error: #CF222E;
-    --color-error-light: #FFEBE9;
-    --color-info: #0969DA;
-    --color-info-light: #DDF4FF;
+    --color-success: #1b873f;
+    --color-success-light: #e6f6ec;
+    --color-warning: #d08700;
+    --color-warning-light: #fff4d4;
+    --color-error: #cf222e;
+    --color-error-light: #ffebe9;
+    --color-info: #0969da;
+    --color-info-light: #ddf4ff;
 
     /* Spacing — 4px base */
-    --space-1: 0.25rem;   /* 4px */
-    --space-2: 0.5rem;    /* 8px */
-    --space-3: 0.75rem;   /* 12px */
-    --space-4: 1rem;      /* 16px */
-    --space-5: 1.25rem;   /* 20px */
-    --space-6: 1.5rem;    /* 24px */
-    --space-8: 2rem;      /* 32px */
-    --space-10: 2.5rem;   /* 40px */
-    --space-12: 3rem;     /* 48px */
-    --space-16: 4rem;     /* 64px */
+    --space-1: 0.25rem; /* 4px */
+    --space-2: 0.5rem; /* 8px */
+    --space-3: 0.75rem; /* 12px */
+    --space-4: 1rem; /* 16px */
+    --space-5: 1.25rem; /* 20px */
+    --space-6: 1.5rem; /* 24px */
+    --space-8: 2rem; /* 32px */
+    --space-10: 2.5rem; /* 40px */
+    --space-12: 3rem; /* 48px */
+    --space-16: 4rem; /* 64px */
 
     /* Border Radius — R15 기준 (브랜딩 표준) */
     --radius-sm: 8px;
@@ -89,35 +90,35 @@
 
   /* Dark mode override */
   .dark {
-    --color-bg: #0A0A0A;
+    --color-bg: #0a0a0a;
     --color-bg-elevated: #141414;
-    --color-bg-sunken: #0E0E0E;
+    --color-bg-sunken: #0e0e0e;
     --color-bg-overlay: rgba(255, 255, 255, 0.04);
 
-    --color-border: #2A2A2A;
-    --color-border-subtle: #1E1E1E;
-    --color-border-strong: #3A3A3A;
+    --color-border: #2a2a2a;
+    --color-border-subtle: #1e1e1e;
+    --color-border-strong: #3a3a3a;
 
-    --color-text: #F0F0F0;
-    --color-text-secondary: #94A3B8;
-    --color-text-tertiary: #64748B;
+    --color-text: #f0f0f0;
+    --color-text-secondary: #94a3b8;
+    --color-text-tertiary: #64748b;
     --color-text-inverse: #0d1f33;
 
-    --color-accent: #7BA7C9;
+    --color-accent: #7ba7c9;
     --color-accent-light: rgba(15, 76, 129, 0.15);
-    --color-accent-hover: #9BBDD6;
+    --color-accent-hover: #9bbdd6;
 
-    --color-teal: #4DD8C0;
+    --color-teal: #4dd8c0;
     --color-teal-light: rgba(0, 191, 165, 0.12);
-    --color-teal-hover: #6EE4D0;
+    --color-teal-hover: #6ee4d0;
 
-    --color-success: #3FB950;
+    --color-success: #3fb950;
     --color-success-light: rgba(63, 185, 80, 0.12);
-    --color-warning: #D29922;
+    --color-warning: #d29922;
     --color-warning-light: rgba(210, 153, 34, 0.12);
-    --color-error: #F85149;
+    --color-error: #f85149;
     --color-error-light: rgba(248, 81, 73, 0.12);
-    --color-info: #58A6FF;
+    --color-info: #58a6ff;
     --color-info-light: rgba(88, 166, 255, 0.12);
 
     --shadow-1: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -143,14 +144,21 @@
   }
 
   /* ── TYPOGRAPHY ── */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.025em;
     color: var(--color-text);
   }
 
-  code, pre, kbd {
+  code,
+  pre,
+  kbd {
     font-family: var(--font-mono);
     font-size: 0.875em;
   }
@@ -158,7 +166,6 @@
 
 /* ── COMPONENT CLASSES ── */
 @layer components {
-
   /* Surface — 카드/패널 기본 */
   .surface {
     background-color: var(--color-bg-elevated);
@@ -170,9 +177,10 @@
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    transition: border-color var(--duration-normal) var(--ease-out),
-                box-shadow var(--duration-normal) var(--ease-out),
-                transform var(--duration-normal) var(--ease-out);
+    transition:
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
   .surface-interactive:hover {
     border-color: var(--color-border-strong);
@@ -200,8 +208,9 @@
     font-weight: 500;
     color: var(--color-text-tertiary);
     border-bottom: 2px solid transparent;
-    transition: color var(--duration-fast),
-                border-color var(--duration-fast);
+    transition:
+      color var(--duration-fast),
+      border-color var(--duration-fast);
     cursor: pointer;
     background: none;
     border-top: none;
@@ -211,7 +220,7 @@
   .tab:hover {
     color: var(--color-text-secondary);
   }
-  .tab[data-active="true"],
+  .tab[data-active='true'],
   .tab.active {
     color: var(--color-text);
     border-bottom-color: var(--color-accent);
@@ -286,8 +295,9 @@
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color var(--duration-fast),
-                transform var(--duration-fast);
+    transition:
+      background-color var(--duration-fast),
+      transform var(--duration-fast);
   }
   .btn-primary:hover {
     background-color: var(--color-accent-hover);
@@ -308,8 +318,9 @@
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color var(--duration-fast),
-                transform var(--duration-fast);
+    transition:
+      background-color var(--duration-fast),
+      transform var(--duration-fast);
   }
   .btn-teal:hover {
     background-color: var(--color-teal-hover);
@@ -330,8 +341,9 @@
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
-    transition: border-color var(--duration-fast),
-                color var(--duration-fast);
+    transition:
+      border-color var(--duration-fast),
+      color var(--duration-fast);
   }
   .btn-secondary:hover {
     border-color: var(--color-border-strong);
@@ -370,10 +382,18 @@
     border-radius: 50%;
     display: inline-block;
   }
-  .status-dot-success { background-color: var(--color-success); }
-  .status-dot-warning { background-color: var(--color-warning); }
-  .status-dot-error { background-color: var(--color-error); }
-  .status-dot-neutral { background-color: var(--color-text-tertiary); }
+  .status-dot-success {
+    background-color: var(--color-success);
+  }
+  .status-dot-warning {
+    background-color: var(--color-warning);
+  }
+  .status-dot-error {
+    background-color: var(--color-error);
+  }
+  .status-dot-neutral {
+    background-color: var(--color-text-tertiary);
+  }
 
   /* Focus Ring — Teal (브랜딩 표준) */
   .focus-ring:focus-visible {

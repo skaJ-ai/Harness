@@ -1,5 +1,4 @@
-import { clsx } from 'clsx';
-import type { ClassValue } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 
 /**
  * Utility: className 병합

@@ -9,12 +9,13 @@
 
 모든 작업은 아래 순서를 따른다:
 
-1. **Plan**: PLAN.md에 작업 계획 작성 → 승인 후 진행
-2. **Execute**: CHECKLIST.md 기반으로 단계별 실행
-3. **Self-Check**: 아래 Back Guard 기준으로 자체 평가
-4. **Report**: 결과를 평가 리포트로 정리
+1. **Plan**: 작업 계획 수립 → 사용자 승인 후 진행
+2. **Execute**: 계획 기반으로 단계별 구현
+3. **Self-Check**: 아래 Back Guard 기준으로 자체 평가 (실행 시점: 커밋 직전, `/harness-eval` 명령 시)
+4. **Report**: 평가 결과를 `.harness/back-guard/eval-template.md` 양식으로 정리
 
 **절대 Plan 없이 코드를 작성하지 않는다.**
+**Front Guard(`npm run harness:check`)는 ts/tsx 코드 품질을, Back Guard는 AI 산출물 품질을 담당한다.**
 
 ---
 

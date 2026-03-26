@@ -1,7 +1,7 @@
 {
-  "name": "harness-engineering-template",
-  "version": "1.0.0",
-  "description": "Harness Engineering Framework - AI 멱등성 보장을 위한 범용 프로젝트 템플릿",
+  "name": "harness",
+  "version": "0.1.0",
+  "description": "Harness — AI 문서 생성 플랫폼. 아이디어를 넣으면 보고서, PPT, 엑셀이 나옵니다.",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,8 +10,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:check": "eslint . --max-warnings=0",
-    "format": "prettier --write \"**/*.{ts,tsx,js,json,md,css}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,css}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,css}\"",
     "typecheck": "tsc --noEmit",
     "harness:check": "npm run lint:check && npm run format:check && npm run typecheck",
     "harness:fix": "npm run lint:fix && npm run format",

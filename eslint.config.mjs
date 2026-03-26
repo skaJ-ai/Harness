@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
 /** @type {import('eslint').Linter.Config[]} */
-export default [
+const config = [
   // ─────────────────────────────────────────
   // Base: Next.js recommended
   // ─────────────────────────────────────────
@@ -34,6 +34,7 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
+        project: './tsconfig.json',
       },
     },
     settings: {
@@ -49,15 +50,7 @@ export default [
       'import/order': [
         'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-            'type',
-          ],
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'type'],
           pathGroups: [
             { pattern: 'react', group: 'builtin', position: 'before' },
             { pattern: 'react/**', group: 'builtin', position: 'before' },
@@ -109,10 +102,8 @@ export default [
       'no-restricted-syntax': [
         'error',
         {
-          selector:
-            'CallExpression[callee.object.name="Math"][callee.property.name="random"]',
-          message:
-            'HARNESS: Math.random() is non-deterministic. Use data-based identifiers.',
+          selector: 'CallExpression[callee.object.name="Math"][callee.property.name="random"]',
+          message: 'HARNESS: Math.random() is non-deterministic. Use data-based identifiers.',
         },
       ],
 
@@ -165,12 +156,8 @@ export default [
   // Ignore patterns
   // ─────────────────────────────────────────
   {
-    ignores: [
-      'node_modules/**',
-      '.next/**',
-      'out/**',
-      'dist/**',
-      'doc-pipeline/**',
-    ],
+    ignores: ['node_modules/**', '.next/**', 'out/**', 'dist/**', 'doc-pipeline/**'],
   },
 ];
+
+export default config;
