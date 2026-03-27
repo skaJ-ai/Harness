@@ -1,4 +1,4 @@
-# Project Context: Harness Engineering Framework
+# Project Context: HARP
 
 > 이 문서는 어떤 AI/LLM이든 이 프로젝트를 이어서 작업할 수 있도록 전체 맥락을 정리한 것입니다.
 > **반드시 이 문서를 먼저 읽고 작업을 시작하세요.**
@@ -84,7 +84,7 @@
 | # | 작업 | 설명 | 우선순위 |
 |---|------|------|----------|
 | 1 | `npm install` | 의존성 설치 미실행 (Bash 도구 제한) | 🔴 High |
-| 2 | `git init` + 첫 커밋 + push | GitHub 리포: https://github.com/skaJ-ai/Harness.git | 🔴 High |
+| 2 | `git init` + 첫 커밋 + push | GitHub 리포: https://github.com/skaJ-ai/HARP.git | 🔴 High |
 | 3 | ESLint 실행 검증 | `npm run harness:check`로 린터가 실제로 작동하는지 확인 | 🔴 High |
 | 4 | Git hooks 설치 확인 | `npm run harness:install-hooks` 후 pre-commit 테스트 | 🟡 Medium |
 | 5 | ESLint config 디버깅 | flat config(v9)가 모든 플러그인과 호환되는지 확인 필요 | 🟡 Medium |
@@ -97,7 +97,7 @@
 ## 5. 디렉토리 구조 설명
 
 ```
-C:\dev\Harness\
+C:\dev\HARP\
 │
 ├── CLAUDE.md                        ← 🔑 PRIMARY HARNESS (가장 중요한 파일)
 │                                       AI가 가장 먼저 읽어야 하는 규칙 문서
@@ -249,4 +249,4 @@ C:\dev\Harness\
 | 채널톡 블로그 | https://channel.io/ko/blog/articles/what-is-harness-2611ddf1 | 하네스 개념 정리 |
 | Toss Tech | https://toss.tech/article/harness-for-team-productivity | 계층화 컨텍스트, 조직 생산성 |
 | DIO AX | https://www.dio.so/fde | FDE 모델 설명 |
-| GitHub 리포 | https://github.com/skaJ-ai/Harness.git | 이 프로젝트 원격 저장소 |
+| GitHub 리포 | https://github.com/skaJ-ai/HARP.git | 이 프로젝트 원격 저장소 |

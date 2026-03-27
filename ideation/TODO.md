@@ -1,4 +1,4 @@
-# TODO: Harness Engineering Framework
+# TODO: HARP
 
 > 마지막 업데이트: 2026-03-25
 > 작업자: Claude Opus 4.6 + 사용자(jangs)
@@ -9,11 +9,11 @@
 
 - [ ] **Git 초기화 + 첫 커밋 + Push**
   ```bash
-  cd C:/dev/Harness
+  cd C:/dev/HARP
   git init
   git add .
-  git commit -m "feat: initialize harness engineering framework"
-  git remote add origin https://github.com/skaJ-ai/Harness.git
+  git commit -m "feat: initialize harp platform"
+  git remote add origin https://github.com/skaJ-ai/HARP.git
   git branch -M main
   git push -u origin main
   ```

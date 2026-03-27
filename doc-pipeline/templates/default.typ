@@ -1,4 +1,4 @@
-// Typst Document Template for Harness Engineering
+// Typst Document Template for HARP
 // MD → PDF 변환 시 사용되는 기본 템플릿
 // Usage: typst compile input.typ output.pdf
 
@@ -13,7 +13,7 @@
   header: context {
     if counter(page).get().first() > 1 [
       #set text(size: 9pt, fill: gray)
-      _Harness Engineering_ #h(1fr) #counter(page).display()
+      _HARP_ #h(1fr) #counter(page).display()
     ]
   },
   footer: context {
@@ -21,7 +21,7 @@
       #set text(size: 8pt, fill: gray)
       #line(length: 100%, stroke: 0.5pt + gray)
       #v(4pt)
-      Confidential #h(1fr) Generated via Harness Doc Pipeline
+      Confidential #h(1fr) Generated via HARP Doc Pipeline
     ]
   },
 )

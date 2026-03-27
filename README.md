@@ -1,66 +1,75 @@
-# Harness — AI 문서 생성 플랫폼
+# HARP — HR AI Report Platform
 
-> 아이디어를 넣으면 보고서, PPT, 엑셀이 나옵니다. 어떤 AI를 써도 같은 품질로.
+> HR 담당자가 AI와 대화하면 회사 표준 형식의 보고서 초안을 만들고, 그 과정이 다시 쓰는 자산으로 쌓이는 private-first 작업공간
 
-People팀(AX & CI Lab)을 위한 AI 문서 생성 플랫폼.
-[AI-Native 업무 환경 전환 전략](../AI-Native-Working-Way/)의 Phase 1 실행 산출물입니다.
+People팀(AX & CI Lab)을 위한 HR 전용 AI 보고서 플랫폼입니다.
+대화, 근거자료, 산출물, 자산 승격 흐름을 하나의 워크스페이스에서 관리합니다.
+
+## Product Summary
+
+- **대상 사용자**: HR 담당자
+- **핵심 가치**: 표준 산출물 생성, private workspace, 점진적 자산화
+- **MVP 산출물**: 주간 HR 현황 보고, 교육 운영 결과 요약, 제도 검토 초안
+- **LLM 전략**: 사내 Qwen OpenAI-compatible endpoint 사용, 모델 교체 내성은 컨텍스트 설계로 확보
 
 ## Harness Engineering
 
-이 프로젝트는 **하네스 엔지니어링**을 적용합니다.
+이 프로젝트는 제품 이름과 별개로 **하네스 엔지니어링** 방식을 적용합니다.
 
 ```
 앞단(Front Guard)          뒷단(Back Guard)
 CLAUDE.md                  /harness-eval
-ESLint + Prettier    →     4-Criteria Scoring   = 멱등성
+ESLint + Prettier    →     4-Criteria Scoring   = 품질 하한선
 Git Pre-commit Hook        (커밋 직전 수행)
 ```
 
 - **Front Guard**: `npm run harness:check` — ESLint(typed) + Prettier + TypeScript 검사
-- **Back Guard**: `/harness-eval` — AI가 Relevance/Faithfulness/Correctness/Quality 4기준 평가
+- **Back Guard**: `/harness-eval` — AI 산출물을 Relevance/Faithfulness/Correctness/Quality 기준으로 평가
 
 ## Quick Start
 
 ```bash
 npm install
-npm run harness:check   # Front Guard 통과 확인
-npm run dev             # 개발 서버 시작
+npm run harness:check
+npm run build
+docker compose up --build -d
 ```
+
+- 앱: `http://127.0.0.1:26000`
+- 헬스체크: `http://127.0.0.1:26000/api/health`
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router, standalone Docker)
+- **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript (strict)
-- **DB**: SQLite (better-sqlite3) + Drizzle ORM
-- **AI**: Vercel AI SDK + Mastra (Agent orchestration)
-- **LLM**: Qwen3-Next (로컬) + GAUSS (사내)
-- **Export**: Marp (PPT), PptxGenJS (PPTX), ExcelJS (엑셀)
-- **Design**: "Trust within Flow" — Pretendard, Core Blue #0F4C81, Teal #00BFA5
+- **UI**: Tailwind CSS + Trust within Flow design system
+- **DB**: PostgreSQL + Drizzle ORM
+- **Auth**: bcryptjs + JWT(httpOnly cookie)
+- **AI**: Vercel AI SDK + OpenAI-compatible Qwen endpoint
+- **Deployment**: Docker Compose (`26000 -> 3000`)
 
 ## Key Files
 
 | File | Role |
 |------|------|
-| `CLAUDE.md` | **Primary Harness** — AI 에이전트 출력 제어 규칙 |
-| `PLAN.md` | 구현 계획 (Phase A~E) |
-| `eslint.config.mjs` | Front Guard — 멱등성 강제 린터 |
-| `.harness/` | 하네스 설정 (hooks, guard configs) |
-| `src/app/globals.css` | 디자인 토큰 |
+| `CLAUDE.md` | Primary harness 규칙 |
+| `docs/SDD.md` | 제품 설계 계약 문서 |
+| `docs/methodology-reference.md` | 산파술 인터뷰용 방법론 참고 |
+| `.harness/` | guard, hooks, context 레이어 |
+| `src/lib/templates/index.ts` | 산출물 템플릿, 체크리스트, 프롬프트 정의 |
+| `src/app/workspace/` | 세션, 대시보드, 산출물 UI |
 
-## Implementation Phases
+## Current Scope
 
-| Phase | 내용 | 상태 |
-|-------|------|------|
-| A | Docker 서빙 (port 26000) | 대기 |
-| B | 문서 DB + REST API | 대기 |
-| C | 채팅 UI (AI 인터뷰) | 대기 |
-| D | Agent 파이프라인 | 대기 |
-| E | 산출물 변환 (PPT/엑셀) | 대기 |
+- 회원가입/로그인 + 개인 workspace 자동 생성
+- 세션 생성 + AI 인터뷰 + 체크리스트/캔버스
+- source 첨부, draft 생성, final/promoted_asset 전이
+- workspace 검색, 이전 산출물 참조, 제품 랜딩 페이지
 
-## Credits
+## Notes
 
-Harness Engineering methodology:
-- **김지운** (FDE, SpaceWhy/DIO), **황현태** (CEO, SpaceWhy), **빌더 조슈** — [YouTube](https://www.youtube.com/@builderjoshkim)
+- `.harness/`와 `harness:check`는 제품명이 아니라 개발 하네스 이름이라 유지합니다.
+- 사내 LLM endpoint 접근성은 실행 환경의 네트워크 상태에 따라 달라집니다.
 
 ## License
 

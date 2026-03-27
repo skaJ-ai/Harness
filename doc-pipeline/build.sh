@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════
-# Harness Document Pipeline: MD → PDF
+# HARP Document Pipeline: MD → PDF
 #
 # Prerequisites:
 #   - Typst CLI: https://github.com/typst/typst
@@ -85,7 +85,7 @@ build_md_to_pdf() {
 TARGET="${1:-$PROJECT_ROOT/docs}"
 
 echo ""
-echo "📄 Harness Document Pipeline"
+echo "📄 HARP Document Pipeline"
 echo "════════════════════════════"
 
 if [ -f "$TARGET" ]; then

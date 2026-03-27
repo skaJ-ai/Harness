@@ -1,4 +1,4 @@
-# PLAN: Harness — AI 문서 생성 플랫폼
+# PLAN: HARP — AI 문서 생성 플랫폼
 
 > 작성일: 2026-03-25
 > 상태: **승인 대기**
@@ -9,7 +9,7 @@
 
 > "아이디어를 넣으면 보고서/PPT/엑셀이 나오는 도구, 어떤 AI를 써도 같은 품질로."
 
-Harness 프레임워크를 사내 도커로 서빙하고, MD 문서를 DB화하여
+HARP 플랫폼을 사내 도커로 서빙하고, MD 문서를 DB화하여
 AI-Native 업무 환경 전략의 Phase 1 "기반 구축" 파일럿을 구현한다.
 
 ### 핵심 가치
@@ -140,7 +140,7 @@ CREATE TABLE documents (
   title      TEXT NOT NULL,
   content    TEXT NOT NULL,              -- MD 원문
   type       TEXT NOT NULL,              -- plan | report | ppt | excel | ideation | prd
-  project    TEXT DEFAULT 'harness',     -- harness | hr-coaching | ai-native
+  project    TEXT DEFAULT 'harp',        -- harp | hr-coaching | ai-native
   tags       TEXT DEFAULT '[]',          -- JSON array
   tone       TEXT DEFAULT 'standard',    -- executive | working | presentation
   version    INTEGER DEFAULT 1,

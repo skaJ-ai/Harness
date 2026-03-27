@@ -379,7 +379,7 @@ services:
     build: .
     ports: ["26000:3000"]
     environment:
-      DATABASE_URL: postgresql://harness:***@db:5432/harness
+      DATABASE_URL: postgresql://harp:***@db:5432/harp
       LLM_API_URL: http://10.240.248.157:8533/v1
       LLM_MODEL: Qwen/Qwen3-235B-A22B
     depends_on: [db]
@@ -388,8 +388,8 @@ services:
     image: postgres:16-alpine
     volumes: ["pgdata:/var/lib/postgresql/data"]
     environment:
-      POSTGRES_DB: harness
-      POSTGRES_USER: harness
+      POSTGRES_DB: harp
+      POSTGRES_USER: harp
       POSTGRES_PASSWORD: ***
 
 volumes:
