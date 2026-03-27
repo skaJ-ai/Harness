@@ -91,8 +91,11 @@ const config = [
         {
           selector: 'variable',
           types: ['boolean'],
-          format: ['camelCase'],
-          prefix: ['is', 'has', 'should', 'can', 'will', 'did'],
+          format: null,
+          custom: {
+            match: true,
+            regex: '^(is|has|should|can|will|did)[A-Z].*$',
+          },
         },
       ],
 
@@ -143,6 +146,7 @@ const config = [
       'src/app/**/template.tsx',
       'src/app/**/default.tsx',
       'src/app/**/route.ts',
+      'drizzle.config.ts',
       'next.config.ts',
       'tailwind.config.ts',
       'postcss.config.*',

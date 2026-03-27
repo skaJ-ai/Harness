@@ -5,8 +5,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 const metadata: Metadata = {
-  title: 'Harness — AI 문서 생성 플랫폼',
-  description: '아이디어를 넣으면 보고서, PPT, 엑셀이 나옵니다. 어떤 AI를 써도 같은 품질로.',
+  description:
+    'HARP는 AI와 대화하며 회사 표준 형식의 HR 산출물을 더 빠르고 일관되게 만드는 private-first 작업공간입니다.',
+  title: 'HARP — HR AI Report Platform',
 };
 
 export { metadata };

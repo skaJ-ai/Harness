@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harness — Design System</title>
+<style>
+  /* ── FONT: Pretendard Variable ── */
+  @font-face {
+    font-family: 'Pretendard Variable';
+    src: url('public/fonts/PretendardVariable.woff2') format('woff2-variations');
+    font-weight: 45 920;
+    font-display: swap;
+  }
+
+  :root {
+    --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+
+    --bg: #FCFCFC;
+    --bg-elevated: #FFFFFF;
+    --bg-sunken: #F5F5F7;
+    --border: #E5E7EB;
+    --border-subtle: #F0F0F2;
+    --border-strong: #D1D5DB;
+
+    --text: #0d1f33;
+    --text-secondary: #4a6080;
+    --text-tertiary: #8fa5be;
+    --text-inverse: #FFFFFF;
+
+    --accent: #0F4C81;
+    --accent-light: #D4E4F7;
+    --accent-hover: #0a3d6b;
+
+    --teal: #00BFA5;
+    --teal-light: #E0FAF6;
+
+    --success: #1B873F;
+    --success-light: #E6F6EC;
+    --warning: #D08700;
+    --warning-light: #FFF4D4;
+    --error: #CF222E;
+    --error-light: #FFEBE9;
+    --info: #0969DA;
+    --info-light: #DDF4FF;
+
+    --radius-sm: 8px;
+    --radius-md: 15px;
+    --radius-lg: 24px;
+
+    --shadow-1: 0 2px 6px rgba(15,76,129,0.06);
+    --shadow-2: 0 4px 14px rgba(15,76,129,0.09);
+    --shadow-3: 0 8px 28px rgba(15,76,129,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+  .section { margin-bottom: 4rem; }
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .page-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+  .page-header .meta-line {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: 0.75rem;
+  }
+
+  /* ── SWATCH ── */
+  .swatch {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .swatch-color {
+    height: 72px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.5rem 0.75rem;
+  }
+  .swatch-color span {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.85);
+    color: #111;
+  }
+  .swatch-label {
+    padding: 0.6rem 0.75rem;
+    background: var(--bg-elevated);
+  }
+  .swatch-label .name { font-size: 0.8rem; font-weight: 600; }
+  .swatch-label .var {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+  }
+
+  /* ── TYPOGRAPHY SAMPLE ── */
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta {
+    width: 120px;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+  }
+  .type-sample { flex: 1; }
+
+  /* ── COMPONENT PREVIEW ── */
+  .preview-box {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+  .preview-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    margin-bottom: 1rem;
+  }
+
+  /* ── TOKENS TABLE ── */
+  .token-table { width: 100%; border-collapse: collapse; }
+  .token-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .token-table td {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+  }
+  .token-table td:first-child {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+
+  /* ── LIVE COMPONENTS ── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 500;
+  }
+  .badge-accent { background: var(--accent-light); color: var(--accent); }
+  .badge-success { background: var(--success-light); color: var(--success); }
+  .badge-warning { background: var(--warning-light); color: var(--warning); }
+  .badge-error { background: var(--error-light); color: var(--error); }
+  .badge-neutral { background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 20px; border-radius: var(--radius-md);
+    font-size: 0.875rem; font-weight: 600; cursor: pointer;
+    transition: all 0.15s ease;
+    border: none; font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: var(--text-inverse); }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); font-weight: 500; }
+  .btn-secondary:hover { border-color: var(--border-strong); color: var(--text); }
+  .btn-ghost { background: transparent; color: var(--text-secondary); font-weight: 500; }
+  .btn-ghost:hover { background: var(--bg-sunken); color: var(--text); }
+  .btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+
+  .tab-bar {
+    display: flex; gap: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    padding-bottom: 12px;
+    font-size: 0.875rem; font-weight: 500;
+    color: var(--text-tertiary);
+    border-bottom: 2px solid transparent;
+    cursor: pointer; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+    transition: color 0.12s;
+  }
+  .tab:hover { color: var(--text-secondary); }
+  .tab.active { color: var(--text); border-bottom-color: var(--text); }
+
+  .process-flow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    background: var(--bg-sunken);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+  .process-flow .current { color: var(--text); font-weight: 600; }
+
+  .doc-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    padding: 2rem;
+    box-shadow: var(--shadow-1);
+    transition: box-shadow 0.2s;
+  }
+  .doc-card:hover { box-shadow: var(--shadow-2); }
+  .doc-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .doc-card .doc-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    margin-bottom: 0.75rem;
+  }
+  .doc-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--bg-elevated);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+  .input-field::placeholder { color: var(--text-tertiary); }
+
+  .surface-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .surface-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-2px);
+  }
+
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1>Harness Design System</h1>
+    <p>"Trust within Flow" 기반, 문서 생성 플랫폼을 위한 디자인 토큰과 컴포넌트</p>
+    <div class="meta-line">v2.0.0 — font: Pretendard Variable — accent: Core Blue #0F4C81 / Teal #00BFA5</div>
+  </div>
+
+  <!-- COLOR -->
+  <div class="section">
+    <div class="section-title">01 Color Palette</div>
+
+    <h3 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-secondary);">Foundation</h3>
+    <div class="grid-4" style="margin-bottom: 2rem;">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FCFCFC; border-bottom: 1px solid var(--border);"><span>#FCFCFC</span></div>
+        <div class="swatch-label"><div class="name">Background</div><div class="var">--color-bg</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FFFFFF; border-bottom: 1px solid var(--border);"><span>#FFFFFF</span></div>
+        <div class="swatch-label"><div class="name">Elevated</div><div class="var">--color-bg-elevated</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #F5F5F7; border-bottom: 1px solid var(--border);"><span>#F5F5F7</span></div>
+        <div class="swatch-label"><div class="name">Sunken</div><div class="var">--color-bg-sunken</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #111111;"><span style="background: rgba(0,0,0,0.6); color: #fff;">#111111</span></div>
+        <div class="swatch-label"><div class="name">Text</div><div class="var">--color-text</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-secondary);">Accent & Semantic</h3>
+    <div class="grid-4" style="margin-bottom: 2rem;">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #0F4C81;"><span style="background: rgba(0,0,0,0.4); color: #fff;">#0F4C81</span></div>
+        <div class="swatch-label"><div class="name">Accent (Core Blue)</div><div class="var">--color-accent</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1B873F;"><span style="background: rgba(0,0,0,0.4); color: #fff;">#1B873F</span></div>
+        <div class="swatch-label"><div class="name">Success</div><div class="var">--color-success</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #D08700;"><span style="background: rgba(0,0,0,0.4); color: #fff;">#D08700</span></div>
+        <div class="swatch-label"><div class="name">Warning</div><div class="var">--color-warning</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #CF222E;"><span style="background: rgba(0,0,0,0.4); color: #fff;">#CF222E</span></div>
+        <div class="swatch-label"><div class="name">Error</div><div class="var">--color-error</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-secondary);">Text Hierarchy</h3>
+    <div class="grid-3">
+      <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 8px; background: #111111;"></div>
+        <div><div style="font-size: 0.85rem; font-weight: 600;">Primary</div><div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">#111111</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 8px; background: #636366;"></div>
+        <div><div style="font-size: 0.85rem; font-weight: 600;">Secondary</div><div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">#636366</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 8px; background: #AEAEB2;"></div>
+        <div><div style="font-size: 0.85rem; font-weight: 600;">Tertiary</div><div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">#AEAEB2</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-title">02 Typography</div>
+
+    <div class="preview-box">
+      <div class="type-row">
+        <div class="type-meta">H1<br>2rem / 700<br>-0.03em</div>
+        <div class="type-sample"><h1 style="font-size: 2rem; font-weight: 700; letter-spacing: -0.03em;">Harness Engineering</h1></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">H2<br>1.5rem / 700<br>-0.025em</div>
+        <div class="type-sample"><h2 style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em;">아이디어를 넣으면 보고서가 나옵니다</h2></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">H3<br>1.15rem / 700<br>-0.02em</div>
+        <div class="type-sample"><h3 style="font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em;">AI 인터뷰 기반 기획서 자동 생성</h3></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Body<br>0.9375rem / 400<br>line: 1.65</div>
+        <div class="type-sample"><p style="font-size: 0.9375rem; color: var(--text-secondary);">People팀 업무 환경에서 발생하는 반복적인 문서 작업을 AI 에이전트가 자동화합니다. 어떤 LLM을 연결하더라도 하네스가 품질을 보장합니다.</p></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Small<br>0.8125rem / 400<br>secondary</div>
+        <div class="type-sample"><p style="font-size: 0.8125rem; color: var(--text-secondary);">2026-03-25 작성 · 버전 3 · 마지막 수정: 2시간 전</p></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Mono<br>0.75rem / 400<br>meta info</div>
+        <div class="type-sample"><p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">source: meeting-log.md · tokens: 2,105 → 412 · model: Qwen3-Next</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="section">
+    <div class="section-title">03 Components</div>
+
+    <!-- Buttons -->
+    <div class="preview-box" style="margin-bottom: 1.5rem;">
+      <div class="preview-label">Buttons</div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <button class="btn btn-primary">기획서 생성</button>
+        <button class="btn btn-secondary">미리보기</button>
+        <button class="btn btn-ghost">취소</button>
+        <button class="btn btn-primary btn-sm">PPT 변환</button>
+        <button class="btn btn-secondary btn-sm">Excel 변환</button>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="preview-box" style="margin-bottom: 1.5rem;">
+      <div class="preview-label">Badges</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <span class="badge badge-accent">Plan</span>
+        <span class="badge badge-success">완료</span>
+        <span class="badge badge-warning">검토 중</span>
+        <span class="badge badge-error">미달</span>
+        <span class="badge badge-neutral">Draft</span>
+        <span class="badge badge-accent">기획서</span>
+        <span class="badge badge-accent">PPT</span>
+        <span class="badge badge-accent">보고서</span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="preview-box" style="margin-bottom: 1.5rem;">
+      <div class="preview-label">Workflow Tabs</div>
+      <div class="tab-bar" style="margin-bottom: 1.5rem;">
+        <button class="tab">01 Input</button>
+        <button class="tab active">02 Plan</button>
+        <button class="tab">03 Design</button>
+        <button class="tab">04 Output</button>
+        <button class="tab">05 Review</button>
+      </div>
+      <div class="preview-label">Sub Tabs</div>
+      <div class="tab-bar">
+        <button class="tab active">기획서</button>
+        <button class="tab">보고서</button>
+        <button class="tab">PPT</button>
+        <button class="tab">엑셀</button>
+      </div>
+    </div>
+
+    <!-- Process Flow -->
+    <div class="preview-box" style="margin-bottom: 1.5rem;">
+      <div class="preview-label">Process Flow</div>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div class="process-flow">
+          <span>아이디어 입력</span>
+          <span>›</span>
+          <span>AI 인터뷰</span>
+          <span>›</span>
+          <span class="current">기획서 생성</span>
+          <span>›</span>
+          <span>산출물 변환</span>
+          <span>›</span>
+          <span>AI 리뷰</span>
+        </div>
+        <div class="process-flow">
+          <span>회의 녹음</span>
+          <span>›</span>
+          <span>STT</span>
+          <span>›</span>
+          <span>Summary</span>
+          <span>›</span>
+          <span class="current">CPS</span>
+          <span>›</span>
+          <span class="current">PRD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="preview-box" style="margin-bottom: 1.5rem;">
+      <div class="preview-label">Input Field</div>
+      <input class="input-field" type="text" placeholder="아이디어를 입력하세요... 예: 신입사원 온보딩 프로세스를 개선하고 싶어" />
+    </div>
+
+    <!-- Status -->
+    <div class="preview-box" style="margin-bottom: 1.5rem;">
+      <div class="preview-label">Status Indicators</div>
+      <div style="display: flex; gap: 1.5rem; align-items: center;">
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem;">
+          <span class="status-dot" style="background: var(--success);"></span> 완료
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem;">
+          <span class="status-dot" style="background: var(--warning);"></span> 진행 중
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem;">
+          <span class="status-dot" style="background: var(--error);"></span> 오류
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem;">
+          <span class="status-dot" style="background: var(--text-tertiary);"></span> 대기
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENT CARDS -->
+  <div class="section">
+    <div class="section-title">04 Document Cards</div>
+
+    <div class="grid-3">
+      <div class="doc-card">
+        <div class="doc-meta">A Qwen3-Next · harness/plan-001.md</div>
+        <h3>온보딩 개선 기획서</h3>
+        <p>신입사원 온보딩 프로세스의 현재 문제점을 분석하고, AI 기반 자동화 방안을 제시합니다.</p>
+        <div style="margin-top: 1rem; display: flex; gap: 6px;">
+          <span class="badge badge-accent">기획서</span>
+          <span class="badge badge-success">완료</span>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-meta">B GAUSS · harness/plan-001.md</div>
+        <h3>온보딩 개선 기획서</h3>
+        <p>신입사원 온보딩 프로세스의 현재 문제점을 분석하고, AI 기반 자동화 방안을 제시합니다.</p>
+        <div style="margin-top: 1rem; display: flex; gap: 6px;">
+          <span class="badge badge-accent">기획서</span>
+          <span class="badge badge-warning">검토 중</span>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-meta">score: 4.2/5.0 · Back Guard</div>
+        <h3>품질 평가 리포트</h3>
+        <p style="font-size: 0.85rem;">연관성 4/5 · 충실도 5/5 · 정확성 4/5 · 품질 4/5</p>
+        <div style="margin-top: 1rem;">
+          <div style="background: var(--success-light); border-radius: var(--radius-sm); padding: 6px 10px; font-size: 0.8rem; color: var(--success); font-weight: 600;">PASS — 가중 평균 4.2/5.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SURFACE CARDS -->
+  <div class="section">
+    <div class="section-title">05 Surface Cards (Interactive)</div>
+
+    <div class="grid-3">
+      <div class="surface-card" style="cursor: pointer;">
+        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">💬</div>
+        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem;">AI 인터뷰</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">아이디어를 구조화된 기획으로 발전시킵니다.</p>
+      </div>
+      <div class="surface-card" style="cursor: pointer;">
+        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">📊</div>
+        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem;">산출물 변환</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">보고서, PPT, 엑셀로 원클릭 변환합니다.</p>
+      </div>
+      <div class="surface-card" style="cursor: pointer;">
+        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🔗</div>
+        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem;">지식 그래프</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">문서 간 관계를 시각화하고 맥락을 추적합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPACING & RADIUS -->
+  <div class="section">
+    <div class="section-title">06 Tokens Reference</div>
+
+    <div class="grid-2">
+      <div class="preview-box">
+        <div class="preview-label">Border Radius</div>
+        <div style="display: flex; gap: 1.5rem; align-items: end;">
+          <div style="text-align: center;">
+            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">sm · 8px</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 15px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">md · 15px (R15)</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="width: 48px; height: 48px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 24px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">lg · 24px</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="width: 48px; height: 48px; background: var(--teal-light, #E0FAF6); border: 1px solid var(--teal, #00BFA5); border-radius: 9999px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">full</div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-box">
+        <div class="preview-label">Shadow</div>
+        <div style="display: flex; gap: 1.5rem; align-items: end;">
+          <div style="text-align: center;">
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: var(--shadow-1);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">1</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: var(--shadow-2);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">2</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: var(--shadow-3);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">3</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="width: 64px; height: 48px; background: var(--bg-elevated); border-radius: 15px; box-shadow: 0 16px 44px rgba(15,76,129,0.14);"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: 6px;">4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,12 +1,15 @@
 {
-  "name": "harness",
+  "name": "harp",
   "version": "0.1.0",
-  "description": "Harness — AI 문서 생성 플랫폼. 아이디어를 넣으면 보고서, PPT, 엑셀이 나옵니다.",
+  "description": "HARP — HR AI Report Platform. AI와 대화하며 회사 표준 형식의 HR 산출물을 만드는 작업공간.",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:check": "eslint . --max-warnings=0",
@@ -19,30 +22,43 @@
     "prepare": "node .harness/hooks/install-hooks.mjs"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^3.0.48",
+    "@ai-sdk/react": "^3.0.142",
+    "ai": "^6.0.140",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.0",
+    "drizzle-orm": "^0.45.1",
+    "jsonwebtoken": "^9.0.3",
     "next": "^15.1.0",
+    "pg": "^8.20.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "clsx": "^2.1.0",
-    "zustand": "^5.0.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "swr": "^2.3.0",
-    "zod": "^3.24.0"
+    "zod": "^3.24.0",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.0.0",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.7.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "autoprefixer": "^10.4.0",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "postcss": "^8.4.0",
     "prettier": "^3.4.0",
     "prettier-plugin-tailwindcss": "^0.6.0",
     "tailwindcss": "^3.4.0",
-    "postcss": "^8.4.0",
-    "autoprefixer": "^10.4.0"
+    "typescript": "^5.7.0"
   }
 }

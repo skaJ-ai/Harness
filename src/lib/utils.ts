@@ -22,6 +22,20 @@ async function safeFetch<T>(url: string, options?: RequestInit): Promise<Result<
     const response = await fetch(url, options);
 
     if (!response.ok) {
+      const errorText = await response.text();
+
+      if (errorText.trim().length > 0) {
+        try {
+          const errorBody = JSON.parse(errorText) as { message?: string };
+
+          if (typeof errorBody.message === 'string' && errorBody.message.trim().length > 0) {
+            return { success: false, error: errorBody.message };
+          }
+        } catch {
+          return { success: false, error: errorText };
+        }
+      }
+
       return { success: false, error: `HTTP ${response.status}: ${response.statusText}` };
     }
 
