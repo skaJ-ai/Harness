@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { WorkspacePageHeader } from '@/components/workspace/page-header';
 import { requireAuthenticatedPageUser } from '@/lib/auth/middleware';
 import { listDeliverablesByWorkspace } from '@/lib/deliverables/service';
 import { searchWorkspaceContent } from '@/lib/search/service';
@@ -41,30 +42,34 @@ export default async function WorkspacePage({
   const recentDeliverables = deliverables.slice(0, 6);
 
   return (
-    <main className="min-h-screen bg-[var(--color-bg)] px-6 py-10">
+    <main className="px-6 py-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-8">
-        <section className="surface flex flex-col gap-6 p-8 shadow-[var(--shadow-2)]">
-          <div className="flex flex-col gap-2">
-            <span className="section-label">Workspace</span>
-            <h1 className="text-3xl font-bold text-[var(--color-text)]">
-              {currentUser.name}님의 HARP 작업공간
-            </h1>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-text-secondary)]">
-              private-first 환경에서 세션, 근거자료, 산출물을 누적하고, 같은 유형의 이전 작업을 다시
-              참조할 수 있습니다.
-            </p>
-          </div>
+        <WorkspacePageHeader
+          actions={
+            <>
+              <Link className="btn-secondary focus-ring" href="/">
+                홈으로
+              </Link>
+              <Link className="btn-teal focus-ring" href="/workspace/new">
+                새 작업 시작
+              </Link>
+            </>
+          }
+          description="private-first 환경에서 세션, 근거자료, 산출물을 누적하고, 같은 유형의 이전 작업을 다시 참조할 수 있습니다."
+          eyebrow="Private Workspace"
+          meta={
+            <>
+              <span className="badge badge-accent">{currentUser.workspaceName}</span>
+              <span className="badge badge-neutral">{currentUser.loginId}</span>
+              <span className="badge badge-neutral">사번 {currentUser.employeeNumber}</span>
+              <span className="badge badge-neutral">Knox {currentUser.knoxId}</span>
+            </>
+          }
+          title={`${currentUser.name}님의 HARP 작업공간`}
+        />
 
+        <section className="surface flex flex-col gap-6 p-8 shadow-[var(--shadow-2)]">
           <div className="grid gap-4 md:grid-cols-4">
-            <div className="doc-card flex flex-col gap-2">
-              <span className="meta">Account</span>
-              <p className="text-base font-semibold text-[var(--color-text)]">
-                {currentUser.loginId}
-              </p>
-              <p className="text-sm text-[var(--color-text-secondary)]">
-                사번 {currentUser.employeeNumber} · Knox {currentUser.knoxId}
-              </p>
-            </div>
             <div className="doc-card flex flex-col gap-2">
               <span className="meta">Workspace</span>
               <p className="text-base font-semibold text-[var(--color-text)]">
@@ -92,39 +97,32 @@ export default async function WorkspacePage({
                 draft, final, promoted asset이 계속 축적됩니다.
               </p>
             </div>
+            <div className="doc-card flex flex-col gap-2">
+              <span className="meta">Search</span>
+              <p className="text-base font-semibold text-[var(--color-text)]">workspace FTS</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                제목, 초안, 근거자료 텍스트를 한 번에 검색합니다.
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <form action="/workspace" className="flex flex-1 flex-col gap-3 sm:flex-row">
               <input
-                className="w-full rounded-full border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-5 py-3 text-sm text-[var(--color-text)] outline-none transition focus:border-[var(--color-accent)]"
+                className="input-surface w-full flex-1"
                 defaultValue={query}
                 name="q"
                 placeholder="세션 메모, 산출물 제목, 핵심 키워드를 검색하세요."
                 type="search"
               />
-              <button
-                className="rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-[var(--color-text-inverse)]"
-                type="submit"
-              >
+              <button className="btn-primary focus-ring" type="submit">
                 검색
               </button>
             </form>
 
-            <div className="flex flex-wrap gap-3">
-              <Link
-                className="rounded-full border border-[var(--color-border)] px-5 py-3 text-sm font-semibold text-[var(--color-text)]"
-                href="/"
-              >
-                홈으로
-              </Link>
-              <Link
-                className="rounded-full bg-[var(--color-teal)] px-5 py-3 text-sm font-semibold text-[var(--color-text-inverse)]"
-                href="/workspace/new"
-              >
-                새 작업 시작
-              </Link>
-            </div>
+            <p className="max-w-sm text-sm leading-6 text-[var(--color-text-secondary)]">
+              지금 필요한 초안과 과거 자산을 한 화면에서 찾고 이어서 작업할 수 있습니다.
+            </p>
           </div>
         </section>
 
@@ -132,7 +130,7 @@ export default async function WorkspacePage({
           <section className="surface flex flex-col gap-5 p-8 shadow-[var(--shadow-2)]">
             <div className="flex items-center justify-between gap-3">
               <div className="flex flex-col gap-2">
-                <span className="section-label">Search</span>
+                <p className="meta">Workspace Search</p>
                 <h2 className="text-2xl font-semibold text-[var(--color-text)]">
                   &quot;{query}&quot; 검색 결과
                 </h2>
@@ -182,7 +180,7 @@ export default async function WorkspacePage({
           <section className="surface flex flex-col gap-5 p-8 shadow-[var(--shadow-2)]">
             <div className="flex items-center justify-between gap-3">
               <div className="flex flex-col gap-2">
-                <span className="section-label">Recent Sessions</span>
+                <p className="meta">Recent Sessions</p>
                 <h2 className="text-2xl font-semibold text-[var(--color-text)]">최근 작업</h2>
               </div>
               <span className="badge badge-accent">{recentSessions.length}개</span>
@@ -226,7 +224,7 @@ export default async function WorkspacePage({
           <section className="surface flex flex-col gap-5 p-8 shadow-[var(--shadow-2)]">
             <div className="flex items-center justify-between gap-3">
               <div className="flex flex-col gap-2">
-                <span className="section-label">Recent Deliverables</span>
+                <p className="meta">Recent Deliverables</p>
                 <h2 className="text-2xl font-semibold text-[var(--color-text)]">최근 산출물</h2>
               </div>
               <span className="badge badge-teal">{recentDeliverables.length}개</span>

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { WorkspacePageHeader } from '@/components/workspace/page-header';
 import { SessionCanvas } from '@/components/workspace/session-canvas';
 import { requireAuthenticatedPageUser } from '@/lib/auth/middleware';
 import { getSessionDetailForWorkspace } from '@/lib/sessions/service';
@@ -19,28 +20,31 @@ export default async function WorkspaceSessionPage({
   }
 
   return (
-    <main className="min-h-screen bg-[var(--color-bg)] px-6 py-8">
+    <main className="px-6 py-8">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex flex-col gap-2">
-            <span className="section-label">Session</span>
-            <h1 className="text-2xl font-bold text-[var(--color-text)]">{session.template.name}</h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link
-              className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-semibold text-[var(--color-text)]"
-              href="/workspace"
-            >
-              대시보드
-            </Link>
-            <Link
-              className="rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-text-inverse)]"
-              href="/workspace/new"
-            >
-              새 작업
-            </Link>
-          </div>
-        </div>
+        <WorkspacePageHeader
+          actions={
+            <>
+              <Link className="btn-secondary focus-ring" href="/workspace">
+                대시보드
+              </Link>
+              <Link className="btn-teal focus-ring" href="/workspace/new">
+                새 작업
+              </Link>
+            </>
+          }
+          description={`${session.template.name} 템플릿으로 진행 중인 인터뷰입니다. 대화와 근거자료를 쌓으면서 오른쪽 캔버스에서 초안을 다듬을 수 있습니다.`}
+          eyebrow="Interview Session"
+          meta={
+            <>
+              <span className="badge badge-accent">{session.template.name}</span>
+              <span className="badge badge-neutral">{session.status}</span>
+              <span className="badge badge-teal">메시지 {session.messageCount}개</span>
+              <span className="badge badge-neutral">자료 {session.sourceCount}개</span>
+            </>
+          }
+          title={session.title}
+        />
 
         <SessionCanvas initialSession={session} />
       </div>

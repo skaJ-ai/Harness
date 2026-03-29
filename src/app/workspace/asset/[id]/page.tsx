@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { AssetViewer } from '@/components/workspace/asset-viewer';
+import { WorkspacePageHeader } from '@/components/workspace/page-header';
 import { requireAuthenticatedPageUser } from '@/lib/auth/middleware';
 import { getDeliverableDetailForWorkspace } from '@/lib/deliverables/service';
 
@@ -15,28 +16,30 @@ export default async function WorkspaceAssetPage({ params }: { params: Promise<{
   }
 
   return (
-    <main className="min-h-screen bg-[var(--color-bg)] px-6 py-8">
+    <main className="px-6 py-8">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex flex-col gap-2">
-            <span className="section-label">Asset Viewer</span>
-            <h1 className="text-2xl font-bold text-[var(--color-text)]">{deliverable.title}</h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link
-              className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-semibold text-[var(--color-text)]"
-              href="/workspace"
-            >
-              대시보드
-            </Link>
-            <Link
-              className="rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-text-inverse)]"
-              href="/workspace/new"
-            >
-              새 작업
-            </Link>
-          </div>
-        </div>
+        <WorkspacePageHeader
+          actions={
+            <>
+              <Link className="btn-secondary focus-ring" href="/workspace">
+                대시보드
+              </Link>
+              <Link className="btn-teal focus-ring" href="/workspace/new">
+                새 작업
+              </Link>
+            </>
+          }
+          description="정리된 draft와 근거 메타데이터를 확인하고, final 또는 promoted asset으로 상태를 승격할 수 있습니다."
+          eyebrow="Deliverable Viewer"
+          meta={
+            <>
+              <span className="badge badge-accent">{deliverable.templateName}</span>
+              <span className="badge badge-neutral">{deliverable.status}</span>
+              <span className="badge badge-teal">v{deliverable.version}</span>
+            </>
+          }
+          title={deliverable.title}
+        />
 
         <AssetViewer initialDeliverable={deliverable} />
       </div>

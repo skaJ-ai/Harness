@@ -79,7 +79,7 @@ function SignupForm() {
       <label className="flex flex-col gap-2 text-sm font-medium text-[var(--color-text)]">
         이름
         <input
-          className="focus-ring surface rounded-[var(--radius-sm)] px-4 py-3 text-sm text-[var(--color-text)]"
+          className="input-surface"
           name="name"
           onChange={handleInputChange}
           placeholder="홍길동"
@@ -91,7 +91,7 @@ function SignupForm() {
       <label className="flex flex-col gap-2 text-sm font-medium text-[var(--color-text)]">
         아이디
         <input
-          className="focus-ring surface rounded-[var(--radius-sm)] px-4 py-3 text-sm text-[var(--color-text)]"
+          className="input-surface"
           name="loginId"
           onChange={handleInputChange}
           placeholder="loginId"
@@ -103,7 +103,7 @@ function SignupForm() {
       <label className="flex flex-col gap-2 text-sm font-medium text-[var(--color-text)]">
         비밀번호
         <input
-          className="focus-ring surface rounded-[var(--radius-sm)] px-4 py-3 text-sm text-[var(--color-text)]"
+          className="input-surface"
           name="password"
           onChange={handleInputChange}
           placeholder="8자 이상"
@@ -115,7 +115,7 @@ function SignupForm() {
       <label className="flex flex-col gap-2 text-sm font-medium text-[var(--color-text)]">
         사번
         <input
-          className="focus-ring surface rounded-[var(--radius-sm)] px-4 py-3 text-sm text-[var(--color-text)]"
+          className="input-surface"
           name="employeeNumber"
           onChange={handleInputChange}
           placeholder="20260001"
@@ -127,7 +127,7 @@ function SignupForm() {
       <label className="flex flex-col gap-2 text-sm font-medium text-[var(--color-text)]">
         Knox ID
         <input
-          className="focus-ring surface rounded-[var(--radius-sm)] px-4 py-3 text-sm text-[var(--color-text)]"
+          className="input-surface"
           name="knoxId"
           onChange={handleInputChange}
           placeholder="knox.id"

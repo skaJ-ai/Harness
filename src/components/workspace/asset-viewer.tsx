@@ -102,43 +102,41 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
 
   return (
     <div className="grid gap-6 xl:grid-cols-[minmax(0,0.72fr)_minmax(320px,0.28fr)]">
-      <section className="surface p-6 shadow-[var(--shadow-2)]">
-        <div className="mb-6 flex flex-col gap-4 border-b border-[var(--color-border)] pb-6">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="section-label">Deliverable</span>
+      <section className="surface p-6 shadow-[var(--shadow-2)] lg:p-8">
+        <div className="mb-6 flex flex-col gap-5 border-b border-[var(--color-border)] pb-6">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="badge badge-neutral">{deliverable.status}</span>
             <span className="badge badge-accent">v{deliverable.version}</span>
             <span className="badge badge-teal">{deliverable.templateName}</span>
           </div>
-          <div className="flex flex-col gap-2">
-            <h1 className="text-3xl font-bold text-[var(--color-text)]">{deliverable.title}</h1>
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              최종 업데이트: {deliverable.updatedAt.slice(0, 16).replace('T', ' ')}
-            </p>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="flex flex-col gap-2">
+              <p className="meta">Deliverable Markdown</p>
+              <h1 className="text-3xl font-bold text-[var(--color-text)]">{deliverable.title}</h1>
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                최종 업데이트: {deliverable.updatedAt.slice(0, 16).replace('T', ' ')}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button className="btn-primary focus-ring" onClick={handleCopyClick} type="button">
+                Markdown 전체 복사
+              </button>
+              {deliverable.sessionId ? (
+                <Link
+                  className="btn-secondary focus-ring"
+                  href={`/workspace/session/${deliverable.sessionId}`}
+                >
+                  캔버스로 돌아가기
+                </Link>
+              ) : null}
+            </div>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              className="rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-[var(--color-text-inverse)]"
-              onClick={handleCopyClick}
-              type="button"
-            >
-              Markdown 전체 복사
-            </button>
-            {deliverable.sessionId ? (
-              <Link
-                className="rounded-full border border-[var(--color-border)] px-5 py-3 text-sm font-semibold text-[var(--color-text)]"
-                href={`/workspace/session/${deliverable.sessionId}`}
-              >
-                캔버스로 돌아가기
-              </Link>
-            ) : null}
-            {copyMessage.length > 0 ? (
-              <p className="text-sm text-[var(--color-text-secondary)]">{copyMessage}</p>
-            ) : null}
-          </div>
+          {copyMessage.length > 0 ? (
+            <p className="text-sm text-[var(--color-text-secondary)]">{copyMessage}</p>
+          ) : null}
         </div>
 
-        <div className="prose prose-slate prose-headings:text-[var(--color-text)] prose-p:text-[var(--color-text-secondary)] max-w-none text-[var(--color-text)]">
+        <div className="markdown-content">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{deliverable.renderMarkdown}</ReactMarkdown>
         </div>
       </section>
@@ -147,7 +145,7 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
         <div className="surface p-6 shadow-[var(--shadow-2)]">
           <div className="mb-4 flex items-center justify-between gap-3">
             <div>
-              <span className="section-label">Back Guard</span>
+              <p className="meta">Back Guard</p>
               <h2 className="mt-2 text-xl font-semibold text-[var(--color-text)]">
                 섹션별 confidence
               </h2>
@@ -180,7 +178,7 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
         <div className="surface p-6 shadow-[var(--shadow-2)]">
           <div className="mb-4 flex items-center justify-between gap-3">
             <div>
-              <span className="section-label">Actions</span>
+              <p className="meta">Status Transition</p>
               <h2 className="mt-2 text-xl font-semibold text-[var(--color-text)]">상태 전이</h2>
             </div>
             <span className="badge badge-accent">{deliverable.status}</span>
@@ -200,7 +198,7 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
           <div className="flex flex-col gap-3">
             {canFinalize ? (
               <button
-                className="rounded-full bg-[var(--color-teal)] px-5 py-3 text-sm font-semibold text-[var(--color-text-inverse)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="btn-teal focus-ring disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={isStatusSubmitting}
                 onClick={handleFinalizeClick}
                 type="button"
@@ -210,7 +208,7 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
             ) : null}
             {canPromote ? (
               <button
-                className="rounded-full border border-[var(--color-accent)] bg-[var(--color-accent-light)] px-5 py-3 text-sm font-semibold text-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="btn-secondary focus-ring border-[var(--color-accent)] bg-[var(--color-accent-light)] text-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={isStatusSubmitting}
                 onClick={handlePromoteClick}
                 type="button"

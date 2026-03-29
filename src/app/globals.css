@@ -68,10 +68,10 @@
     --space-12: 3rem; /* 48px */
     --space-16: 4rem; /* 64px */
 
-    /* Border Radius — R15 기준 (브랜딩 표준) */
+    /* Border Radius — R12 기준 (모던 브랜딩 표준) */
     --radius-sm: 8px;
-    --radius-md: 15px;
-    --radius-lg: 24px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
     --radius-full: 9999px;
 
     /* Shadow — 5단계, brand-tinted */
@@ -226,6 +226,35 @@
     border-bottom-color: var(--color-accent);
   }
 
+  .workspace-nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    transition:
+      background-color var(--duration-fast),
+      border-color var(--duration-fast),
+      color var(--duration-fast),
+      transform var(--duration-fast);
+  }
+  .workspace-nav-link:hover {
+    color: var(--color-text);
+    background-color: var(--color-bg-sunken);
+    border-color: var(--color-border);
+    transform: translateY(-1px);
+  }
+  .workspace-nav-link[data-active='true'] {
+    background-color: var(--color-accent-light);
+    border-color: rgba(15, 76, 129, 0.16);
+    color: var(--color-accent);
+  }
+
   /* Badge / Chip */
   .badge {
     display: inline-flex;
@@ -291,7 +320,7 @@
     background-color: var(--color-accent);
     color: var(--color-text-inverse);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
@@ -314,7 +343,7 @@
     background-color: var(--color-teal);
     color: var(--color-text-inverse);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
@@ -337,7 +366,7 @@
     background-color: transparent;
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -348,6 +377,23 @@
   .btn-secondary:hover {
     border-color: var(--color-border-strong);
     color: var(--color-text);
+  }
+
+  /* Input Base */
+  .input-surface {
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.875rem;
+    color: var(--color-text);
+    outline: none;
+    transition:
+      border-color var(--duration-fast),
+      box-shadow var(--duration-fast);
+  }
+  .input-surface:focus {
+    border-color: var(--color-accent);
   }
 
   /* Meta Label — 모노스페이스 메타 정보 */
@@ -399,6 +445,95 @@
   .focus-ring:focus-visible {
     outline: 2px solid var(--color-teal);
     outline-offset: 2px;
+  }
+
+  .markdown-content {
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    line-height: 1.8;
+  }
+  .markdown-content > * + * {
+    margin-top: var(--space-4);
+  }
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3,
+  .markdown-content h4 {
+    color: var(--color-text);
+    letter-spacing: -0.025em;
+  }
+  .markdown-content h1 {
+    font-size: 1.875rem;
+  }
+  .markdown-content h2 {
+    margin-top: var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-3);
+    font-size: 1.375rem;
+  }
+  .markdown-content h3 {
+    margin-top: var(--space-6);
+    font-size: 1.125rem;
+  }
+  .markdown-content p,
+  .markdown-content li,
+  .markdown-content td,
+  .markdown-content blockquote {
+    color: var(--color-text-secondary);
+  }
+  .markdown-content ul,
+  .markdown-content ol {
+    padding-left: 1.25rem;
+  }
+  .markdown-content li + li {
+    margin-top: var(--space-2);
+  }
+  .markdown-content blockquote {
+    border-left: 3px solid var(--color-teal);
+    background-color: var(--color-teal-light);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--space-4) var(--space-5);
+  }
+  .markdown-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(15, 76, 129, 0.32);
+    text-underline-offset: 3px;
+  }
+  .markdown-content code:not(pre code) {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-sunken);
+    padding: 0.1rem 0.35rem;
+    color: var(--color-text);
+  }
+  .markdown-content pre {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: #0f172a;
+    padding: var(--space-5);
+    color: #e2e8f0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+  .markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+  .markdown-content th,
+  .markdown-content td {
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+  }
+  .markdown-content th {
+    background-color: var(--color-bg-sunken);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text);
   }
 }
 
