@@ -18,7 +18,7 @@ function getChatModel() {
     name: 'harp-qwen',
   });
 
-  return provider(modelName);
+  return provider.chat(modelName);
 }
 
 export { getChatModel };
