@@ -39,7 +39,7 @@ services:
       retries: 10
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-harp} -d ${POSTGRES_DB:-harp}"]
       timeout: 5s
-    image: postgres:16-alpine
+    image: pgvector/pgvector:pg16
     ports:
       - "5432:5432"
     restart: unless-stopped
