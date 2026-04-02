@@ -24,6 +24,8 @@ function buildDeliverableMarkdown(title: string, sections: DeliverableSection[])
   return `# ${title}\n\n${sectionMarkdown}`.trim();
 }
 
+const AI_DISCLOSURE_FOOTER = '\n\n---\n\n> 이 문서는 HARP AI의 도움을 받아 작성되었습니다.';
+
 function buildRenderableDeliverableMarkdown(title: string, sections: DeliverableSection[]): string {
   const sectionMarkdown = sections
     .map((section) =>
@@ -33,7 +35,7 @@ function buildRenderableDeliverableMarkdown(title: string, sections: Deliverable
     )
     .join('\n\n');
 
-  return `# ${title}\n\n${sectionMarkdown}`.trim();
+  return `# ${title}\n\n${sectionMarkdown}`.trim() + AI_DISCLOSURE_FOOTER;
 }
 
 function parseDeliverableMarkdown({

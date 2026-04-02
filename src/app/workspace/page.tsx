@@ -190,7 +190,15 @@ export default async function WorkspacePage({
                   최근 산출물
                 </h2>
               </div>
-              <span className="badge badge-teal">{recentDeliverables.length}</span>
+              <div className="flex items-center gap-2">
+                <Link
+                  className="text-sm font-semibold text-[var(--color-accent)] hover:underline"
+                  href="/workspace/deliverables"
+                >
+                  전체 보기 →
+                </Link>
+                <span className="badge badge-teal">{recentDeliverables.length}</span>
+              </div>
             </div>
 
             {recentDeliverables.length === 0 ? (

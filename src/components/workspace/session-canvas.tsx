@@ -54,6 +54,27 @@ interface SessionDetailFetcherResult {
 
 type CanvasTab = 'canvas' | 'references' | 'tools';
 
+type GuidanceCtaAction = 'focus_chat' | 'switch_tab_sources';
+type GuidanceKind = 'first_deliverable' | 'high_weight_gap' | 'many_empty_sections' | 'no_sources';
+type GuidancePriority = 'high' | 'low' | 'medium';
+
+interface GuidanceItem {
+  ctaAction?: GuidanceCtaAction;
+  ctaLabel?: string;
+  description: string;
+  kind: GuidanceKind;
+  priority: GuidancePriority;
+  title: string;
+}
+
+const GUIDANCE_EMPTY_SECTION_RATIO_THRESHOLD = 0.5;
+const GUIDANCE_HIGH_WEIGHT_THRESHOLD = 3;
+const GUIDANCE_MAX_VISIBLE_ITEMS = 3;
+const GUIDANCE_PRIORITY_ORDER: Record<GuidancePriority, number> = {
+  high: 0,
+  medium: 1,
+  low: 2,
+};
 const PREVIEW_SECTION_CONTENT_MAX_LENGTH = 120;
 const READINESS_PARTIAL_GENERATE_THRESHOLD = 70;
 const SIDEBAR_WIDTH_STORAGE_KEY = 'harp-session-sidebar-width';
@@ -195,9 +216,70 @@ function renderWorkspaceEmptyState({
   );
 }
 
+function computeGuidanceItems(session: SessionDetail): GuidanceItem[] {
+  const items: GuidanceItem[] = [];
+
+  const highWeightGaps = session.template.checklist.filter(
+    (item) => item.weight >= GUIDANCE_HIGH_WEIGHT_THRESHOLD && session.checklist[item.id] !== true,
+  );
+
+  for (const gap of highWeightGaps) {
+    items.push({
+      ctaAction: 'focus_chat',
+      ctaLabel: '인터뷰 이어가기',
+      description: gap.helpText,
+      kind: 'high_weight_gap',
+      priority: 'high',
+      title: `${gap.label} 항목이 비어 있습니다`,
+    });
+  }
+
+  if (session.sources.length === 0) {
+    items.push({
+      ctaAction: 'switch_tab_sources',
+      ctaLabel: '자료 추가하기',
+      description: '관련 데이터나 문서를 추가하면 초안 품질이 높아집니다.',
+      kind: 'no_sources',
+      priority: 'medium',
+      title: '근거자료가 아직 없습니다',
+    });
+  }
+
+  const totalSections = session.canvas.sections.length;
+  const emptySections = session.canvas.sections.filter((section) => section.status === 'empty');
+
+  if (
+    totalSections > 0 &&
+    emptySections.length / totalSections > GUIDANCE_EMPTY_SECTION_RATIO_THRESHOLD
+  ) {
+    items.push({
+      ctaAction: 'focus_chat',
+      ctaLabel: '인터뷰 이어가기',
+      description: '인터뷰를 이어가면 HARP가 자동으로 채워갑니다.',
+      kind: 'many_empty_sections',
+      priority: 'medium',
+      title: `캔버스의 ${emptySections.length}개 섹션이 아직 비어 있습니다`,
+    });
+  }
+
+  if (session.recentReferences.length === 0) {
+    items.push({
+      description: '이번 초안이 다음부터 참고 기준이 됩니다.',
+      kind: 'first_deliverable',
+      priority: 'low',
+      title: '이 유형의 첫 산출물입니다',
+    });
+  }
+
+  items.sort((a, b) => GUIDANCE_PRIORITY_ORDER[a.priority] - GUIDANCE_PRIORITY_ORDER[b.priority]);
+
+  return items.slice(0, GUIDANCE_MAX_VISIBLE_ITEMS);
+}
+
 function SessionCanvas({ initialSession }: SessionCanvasProps) {
   const [activeTab, setActiveTab] = useState<CanvasTab>('canvas');
   const [chatInput, setChatInput] = useState('');
+  const [dismissedGuidanceKinds, setDismissedGuidanceKinds] = useState<string[]>([]);
   const [expandedHelpItemId, setExpandedHelpItemId] = useState<string | null>(null);
   const [sourceContent, setSourceContent] = useState('');
   const [sourceLabel, setSourceLabel] = useState('');
@@ -263,6 +345,12 @@ function SessionCanvas({ initialSession }: SessionCanvasProps) {
     width: `${readinessPercent}%`,
   };
   const completedChecklistCount = Object.values(currentSession.checklist).filter(Boolean).length;
+  const guidanceItems =
+    currentSession.status === 'completed'
+      ? []
+      : computeGuidanceItems(currentSession).filter(
+          (item) => !dismissedGuidanceKinds.includes(item.kind),
+        );
   const isCanvasTabActive = activeTab === 'canvas';
   const isToolsTabActive = activeTab === 'tools';
   const isReferencesTabActive = activeTab === 'references';
@@ -552,8 +640,70 @@ function SessionCanvas({ initialSession }: SessionCanvasProps) {
     setIsPreviewMode(true);
   };
 
+  const handleGuidanceCtaClick = (event: ReactMouseEvent<HTMLButtonElement>) => {
+    const action = event.currentTarget.dataset.guidanceAction;
+
+    if (action === 'focus_chat') {
+      document.getElementById('chat-input')?.focus();
+    }
+
+    if (action === 'switch_tab_sources') {
+      setActiveTab('tools');
+    }
+  };
+
+  const handleGuidanceDismiss = (event: ReactMouseEvent<HTMLButtonElement>) => {
+    const kind = event.currentTarget.dataset.guidanceKind;
+
+    if (kind) {
+      setDismissedGuidanceKinds((previous) => [...previous, kind]);
+    }
+  };
+
   const handleSidebarResizeStart = () => {
     setIsResizingSidebar(true);
+  };
+
+  const renderGuidanceCard = (item: GuidanceItem) => {
+    const priorityBadgeClassName =
+      item.priority === 'high'
+        ? 'badge-error'
+        : item.priority === 'medium'
+          ? 'badge-warning'
+          : 'badge-neutral';
+
+    return (
+      <div
+        className="flex items-start gap-3 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-4 py-3"
+        key={item.kind}
+      >
+        <span className={`badge mt-0.5 shrink-0 ${priorityBadgeClassName}`}>
+          {item.priority === 'high' ? '중요' : item.priority === 'medium' ? '참고' : '안내'}
+        </span>
+        <div className="flex flex-1 flex-col gap-1">
+          <p className="text-sm font-semibold text-[var(--color-text)]">{item.title}</p>
+          <p className="text-xs leading-5 text-[var(--color-text-secondary)]">{item.description}</p>
+          {item.ctaLabel ? (
+            <button
+              className="mt-1 self-start text-xs font-semibold text-[var(--color-accent)] hover:underline"
+              data-guidance-action={item.ctaAction}
+              onClick={handleGuidanceCtaClick}
+              type="button"
+            >
+              {item.ctaLabel}
+            </button>
+          ) : null}
+        </div>
+        <button
+          className="shrink-0 text-xs text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]"
+          data-guidance-kind={item.kind}
+          onClick={handleGuidanceDismiss}
+          type="button"
+        >
+          닫기
+        </button>
+      </div>
+    );
   };
 
   const renderMessage = (message: UIMessage) => {
@@ -886,6 +1036,12 @@ function SessionCanvas({ initialSession }: SessionCanvasProps) {
                 </section>
               ) : (
                 <>
+                  {!isPreviewMode && guidanceItems.length > 0 ? (
+                    <div className="flex flex-col gap-2">
+                      {guidanceItems.map(renderGuidanceCard)}
+                    </div>
+                  ) : null}
+
                   {generateError.length > 0 ? (
                     <div className="border-[var(--color-error)]/20 rounded-[var(--radius-md)] border bg-[var(--color-error-light)] px-4 py-3 text-sm text-[var(--color-error)]">
                       {generateError}

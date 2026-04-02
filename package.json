@@ -27,6 +27,7 @@
     "ai": "^6.0.140",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.0",
+    "docx": "^9.6.1",
     "drizzle-orm": "^0.45.1",
     "jsonwebtoken": "^9.0.3",
     "mammoth": "^1.12.0",

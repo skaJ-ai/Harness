@@ -82,9 +82,17 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
     }
   };
 
+  const UNSAFE_FILENAME_CHARS = /[\\/:*?"<>|]/g;
+  const sanitizedTitle = deliverable.title.replace(UNSAFE_FILENAME_CHARS, '_');
+
+  const handleDocxDownloadClick = () => {
+    const anchor = document.createElement('a');
+    anchor.href = `/api/deliverables/${deliverable.id}/export?format=docx`;
+    anchor.download = `${sanitizedTitle}.docx`;
+    anchor.click();
+  };
+
   const handleDownloadClick = () => {
-    const UNSAFE_FILENAME_CHARS = /[\\/:*?"<>|]/g;
-    const sanitizedTitle = deliverable.title.replace(UNSAFE_FILENAME_CHARS, '_');
     const blob = new Blob([deliverable.renderMarkdown], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
@@ -242,6 +250,13 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
               >
                 다운로드
               </button>
+              <button
+                className="btn-secondary focus-ring"
+                onClick={handleDocxDownloadClick}
+                type="button"
+              >
+                DOCX 다운로드
+              </button>
               {deliverable.status === 'draft' && !isEditing ? (
                 <button
                   className="btn-secondary focus-ring"
@@ -329,7 +344,7 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
                     {getConfidenceLabel(section.confidence)}
                   </span>
                   <span className={`badge ${section.cited ? 'badge-success' : 'badge-neutral'}`}>
-                    {section.cited ? '근거 있음' : '추정 포함'}
+                    {section.cited ? '근거 기반' : 'AI 생성 포함'}
                   </span>
                 </div>
                 <p className="whitespace-pre-wrap text-sm leading-6 text-[var(--color-text-secondary)]">
