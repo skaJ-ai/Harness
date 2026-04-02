@@ -11,7 +11,6 @@ import type {
   SessionTemplateSummary,
 } from '@/lib/sessions/types';
 import { EXAMPLE_TEXT_MAX_LENGTH } from '@/lib/sessions/validators';
-import type { TemplateBadgeColor } from '@/lib/templates';
 import { safeFetch } from '@/lib/utils';
 
 interface NewSessionFormProps {
@@ -23,13 +22,6 @@ interface CreateSessionResponse {
     session: SessionSummary;
   };
 }
-
-const _BADGE_COLOR_CLASS_MAP: Record<TemplateBadgeColor, string> = {
-  amber: 'badge-amber',
-  blue: 'badge-blue',
-  gray: 'badge-gray',
-  green: 'badge-green',
-};
 
 function NewSessionForm({ templates }: NewSessionFormProps) {
   const router = useRouter();
