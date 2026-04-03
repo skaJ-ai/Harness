@@ -62,6 +62,7 @@ interface GuidanceItem {
   ctaAction?: GuidanceCtaAction;
   ctaLabel?: string;
   description: string;
+  id: string;
   kind: GuidanceKind;
   priority: GuidancePriority;
   title: string;
@@ -228,6 +229,7 @@ function computeGuidanceItems(session: SessionDetail): GuidanceItem[] {
       ctaAction: 'focus_chat',
       ctaLabel: '인터뷰 이어가기',
       description: gap.helpText,
+      id: `high_weight_gap_${gap.id}`,
       kind: 'high_weight_gap',
       priority: 'high',
       title: `${gap.label} 항목이 비어 있습니다`,
@@ -239,6 +241,7 @@ function computeGuidanceItems(session: SessionDetail): GuidanceItem[] {
       ctaAction: 'switch_tab_sources',
       ctaLabel: '자료 추가하기',
       description: '관련 데이터나 문서를 추가하면 초안 품질이 높아집니다.',
+      id: 'no_sources',
       kind: 'no_sources',
       priority: 'medium',
       title: '근거자료가 아직 없습니다',
@@ -256,6 +259,7 @@ function computeGuidanceItems(session: SessionDetail): GuidanceItem[] {
       ctaAction: 'focus_chat',
       ctaLabel: '인터뷰 이어가기',
       description: '인터뷰를 이어가면 HARP가 자동으로 채워갑니다.',
+      id: 'many_empty_sections',
       kind: 'many_empty_sections',
       priority: 'medium',
       title: `캔버스의 ${emptySections.length}개 섹션이 아직 비어 있습니다`,
@@ -265,6 +269,7 @@ function computeGuidanceItems(session: SessionDetail): GuidanceItem[] {
   if (session.recentReferences.length === 0) {
     items.push({
       description: '이번 초안이 다음부터 참고 기준이 됩니다.',
+      id: 'first_deliverable',
       kind: 'first_deliverable',
       priority: 'low',
       title: '이 유형의 첫 산출물입니다',
@@ -279,7 +284,7 @@ function computeGuidanceItems(session: SessionDetail): GuidanceItem[] {
 function SessionCanvas({ initialSession }: SessionCanvasProps) {
   const [activeTab, setActiveTab] = useState<CanvasTab>('canvas');
   const [chatInput, setChatInput] = useState('');
-  const [dismissedGuidanceKinds, setDismissedGuidanceKinds] = useState<string[]>([]);
+  const [dismissedGuidanceIds, setDismissedGuidanceIds] = useState<string[]>([]);
   const [expandedHelpItemId, setExpandedHelpItemId] = useState<string | null>(null);
   const [sourceContent, setSourceContent] = useState('');
   const [sourceLabel, setSourceLabel] = useState('');
@@ -349,7 +354,7 @@ function SessionCanvas({ initialSession }: SessionCanvasProps) {
     currentSession.status === 'completed'
       ? []
       : computeGuidanceItems(currentSession).filter(
-          (item) => !dismissedGuidanceKinds.includes(item.kind),
+          (item) => !dismissedGuidanceIds.includes(item.id),
         );
   const isCanvasTabActive = activeTab === 'canvas';
   const isToolsTabActive = activeTab === 'tools';
@@ -653,10 +658,10 @@ function SessionCanvas({ initialSession }: SessionCanvasProps) {
   };
 
   const handleGuidanceDismiss = (event: ReactMouseEvent<HTMLButtonElement>) => {
-    const kind = event.currentTarget.dataset.guidanceKind;
+    const guidanceId = event.currentTarget.dataset.guidanceId;
 
-    if (kind) {
-      setDismissedGuidanceKinds((previous) => [...previous, kind]);
+    if (guidanceId) {
+      setDismissedGuidanceIds((previous) => [...previous, guidanceId]);
     }
   };
 
@@ -675,7 +680,7 @@ function SessionCanvas({ initialSession }: SessionCanvasProps) {
     return (
       <div
         className="flex items-start gap-3 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-4 py-3"
-        key={item.kind}
+        key={item.id}
       >
         <span className={`badge mt-0.5 shrink-0 ${priorityBadgeClassName}`}>
           {item.priority === 'high' ? '중요' : item.priority === 'medium' ? '참고' : '안내'}
@@ -696,7 +701,7 @@ function SessionCanvas({ initialSession }: SessionCanvasProps) {
         </div>
         <button
           className="shrink-0 text-xs text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]"
-          data-guidance-kind={item.kind}
+          data-guidance-id={item.id}
           onClick={handleGuidanceDismiss}
           type="button"
         >

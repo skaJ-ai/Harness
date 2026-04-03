@@ -75,7 +75,7 @@ function AssetViewer({ initialDeliverable }: AssetViewerProps) {
 
   const handleCopyClick = async () => {
     try {
-      await navigator.clipboard.writeText(deliverable.markdown);
+      await navigator.clipboard.writeText(deliverable.renderMarkdown);
       setCopyMessage('Markdown을 복사했습니다.');
     } catch {
       setCopyMessage('복사에 실패했습니다.');
